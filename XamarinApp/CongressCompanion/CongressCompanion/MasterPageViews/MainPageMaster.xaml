@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="CongressCompanion.MainPageMaster"
+             Title="Master">
+    <StackLayout Padding="20, 10">
+        <Label x:Name="PageHeader" Text="Congress Companion" HorizontalTextAlignment="Center" FontSize="32" FontAttributes="Bold" />
+        <BoxView x:Name="HeaderBar" HorizontalOptions="CenterAndExpand" HeightRequest="2" WidthRequest="350" />
+
+        <ListView x:Name="MenuItemsListView" SeparatorVisibility="None" HasUnevenRows="true" ItemsSource="{Binding MenuItems}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <StackLayout Padding="15" HorizontalOptions="FillAndExpand">
+                            <Label TextColor="#F9F3EB" VerticalOptions="FillAndExpand" VerticalTextAlignment="Center" Text="{Binding Title}" FontSize="24"/>
+                        </StackLayout>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </StackLayout>
+</ContentPage>

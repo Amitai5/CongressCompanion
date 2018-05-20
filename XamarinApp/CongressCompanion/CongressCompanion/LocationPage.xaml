@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:custom="clr-namespace:AE_Xamarin.Forms.Controls"
+             xmlns:maps="clr-namespace:Xamarin.Forms.Maps;assembly=Xamarin.Forms.Maps"
+             x:Class="CongressCompanion.LocationPage">
+    <ContentPage.Content>
+        <StackLayout x:Name="MainLayout" VerticalOptions="CenterAndExpand" Padding="20,20,20,20">
+            <StackLayout VerticalOptions="CenterAndExpand" Spacing="35">
+                <Image x:Name="CongressSealImg" WidthRequest="175" />
+
+                <!--Made To Space Out The Image From The TextBox-->
+                <StackLayout Spacing="6">
+                    <custom:AddressEntry x:Name="AddressTxtBox" HorizontalTextAlignment="Center" HorizontalOptions="FillAndExpand" Placeholder="Enter Your Address" IsVisible="True" />
+
+                    <StackLayout x:Name="ForgotPassHolder" Orientation="Horizontal" Spacing="6">
+                        <Button x:Name="ConfirmBTN" Text="Next" HorizontalOptions="FillAndExpand" Clicked="LoadNextPage" />
+                        <ActivityIndicator x:Name="LoadingIcon" IsVisible="False" IsRunning="True" />
+                    </StackLayout>
+                </StackLayout>
+            </StackLayout>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

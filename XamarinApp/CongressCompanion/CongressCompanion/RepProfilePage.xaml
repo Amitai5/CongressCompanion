@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="CongressCompanion.RepProfilePage">
+    <ContentPage.Content>
+        <StackLayout x:Name="MainLayout" VerticalOptions="FillAndExpand" Padding="20, 20, 20, 20" Spacing="32">
+            <StackLayout HorizontalOptions="Fill">
+                <StackLayout x:Name="ImageLayout" Orientation="Horizontal" Spacing="0">
+                    <StackLayout Spacing="12">
+                        <Label x:Name="NameLBL" HorizontalTextAlignment="Start" FontSize="32" FontAttributes="Bold" />
+                        <Label x:Name="TitleLBL" HorizontalTextAlignment="Start" FontSize="20" FontAttributes="Italic" />
+                    </StackLayout>
+                    <Image x:Name="ProfilePhotoIMG" HorizontalOptions="End" WidthRequest="150" HeightRequest="100" />
+                </StackLayout>
+
+                <StackLayout x:Name="TitleLayout" />
+                <BoxView HorizontalOptions="CenterAndExpand" HeightRequest="2" WidthRequest="350" Color="#ECAB66" />
+            </StackLayout>
+            <Label x:Name="PartyLBL" Font="24" HorizontalTextAlignment="Start" FontAttributes="Bold" />
+
+            <StackLayout x:Name="ContactLayout" VerticalOptions="End" Padding="20, 20, 20, 20" >
+                <Label x:Name="PhoneLBL" Font="24" HorizontalTextAlignment="Center" FontAttributes="Bold" />
+                <Label x:Name="WebsiteLBL" Font="24" HorizontalTextAlignment="Center" FontAttributes="Bold" />
+            </StackLayout>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
