@@ -23,7 +23,7 @@ namespace CongressCompanion
             };
 
             //Set The Title Of The First Page
-            Nav.PushAsync(new LocationPage() { Title = "Location" });
+            Nav.PushAsync(new LocationPage() { Title = "Default Location" });
             MainPage = Nav;
         }
 

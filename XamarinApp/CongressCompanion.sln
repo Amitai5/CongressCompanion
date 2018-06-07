@@ -9,7 +9,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CongressCompanion.iOS", "Co
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CongressCompanion.UWP", "CongressCompanion\CongressCompanion.UWP\CongressCompanion.UWP.csproj", "{419BB421-52EB-41BD-9C6B-543E95FEC06C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CongressCompanion", "CongressCompanion\CongressCompanion\CongressCompanion.csproj", "{54209ADB-D048-484F-B7D6-4BAC7FD4AB92}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CongressCompanion", "CongressCompanion\CongressCompanion\CongressCompanion.csproj", "{54209ADB-D048-484F-B7D6-4BAC7FD4AB92}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

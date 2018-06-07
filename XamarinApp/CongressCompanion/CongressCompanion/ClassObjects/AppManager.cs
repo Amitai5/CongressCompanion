@@ -44,14 +44,15 @@ namespace CongressCompanion.ClassObjects
                 }
             }
         }
+
         private static AppManager ClassInstance = null;
         private static readonly object ManagerLock = new object();
         #endregion All The Singleton Stuff
 
         /// <summary>
-        /// Store Their Current Zipcode.
+        /// Store Their Current Street Address.
         /// </summary>
-        public string UserAddress = "";
+        public string UserLocationInfo = "";
 
         /// <summary>
         /// The List Of Representatives For The Government Offices In The Federal Government.
@@ -71,27 +72,31 @@ namespace CongressCompanion.ClassObjects
         /// <summary>
         /// Loads The Local Congress Info.
         /// </summary>
-        public async Task LoadRepresentatives()
+        public async Task<bool> LoadRepresentatives()
         {
             //Clear All Data
             LocalReps.Clear();
             StateReps.Clear();
             FederalReps.Clear();
 
-            //Get Info
-            HttpClient Client = new HttpClient();
-            string CallPath = string.Format("https://www.googleapis.com/civicinfo/v2/representatives?address={0}&key=AIzaSyDi4NE7X-itw0B8qu9Fk-VtN9dSSZybMLE", UserAddress);
-            string RepDataJson = await Client.GetStringAsync(CallPath);
+            //Get Json Data
+            string RepDataJson = await GetRepData();
+
+            //Check If It Failed
+            if (RepDataJson == null)
+            {
+                return false;
+            }
 
             //Load Up The Reps
             List<Representative> TempRepList = new List<Representative>();
-            var JsonData = JsonConvert.DeserializeObject<Rootobject>(RepDataJson);
+            Rootobject JsonData = JsonConvert.DeserializeObject<Rootobject>(RepDataJson);
             for (int RepIndex = 0; RepIndex < JsonData.officials.Length; RepIndex++)
             {
                 Official CurrentOfficial = JsonData.officials[RepIndex];
                 TempRepList.Add(new Representative(CurrentOfficial.urls, CurrentOfficial.photoUrl, CurrentOfficial.name, CurrentOfficial.phones, CurrentOfficial.party));
             }
-
+            
             //Load Up Gov Positions
             for (int officeIndex = 0; officeIndex < JsonData.offices.Length; officeIndex++)
             {
@@ -112,6 +117,7 @@ namespace CongressCompanion.ClassObjects
 
             //Sort Gov Reps
             SortAllReps(TempRepList);
+            return true;
         }
         
         /// <summary>
@@ -145,6 +151,27 @@ namespace CongressCompanion.ClassObjects
             //Sort The Others Alphabetically
             StateReps.Sort();
             LocalReps.Sort();
+        }
+
+        /// <summary>
+        /// The API Call Format.
+        /// </summary>
+        private const string APICallFormat = "https://www.googleapis.com/civicinfo/v2/representatives?address={0}&key={1}";
+
+        /// <summary>
+        /// Makes A Call To The API To Get Representative Data.
+        /// </summary>
+        /// <returns>String Json Data | If Null, Address Was Invalid</returns>
+        private async Task<string> GetRepData()
+        {
+            //Get Info
+            HttpClient Client = new HttpClient();
+            string CallPath = string.Format(APICallFormat, UserLocationInfo, "AIzaSyDi4NE7X-itw0B8qu9Fk-VtN9dSSZybMLE");
+            string RepDataJson = await Client.GetStringAsync(CallPath);
+
+            //Send Back Data
+            bool SuccessfulCall = !RepDataJson.Contains("error");
+            return SuccessfulCall ? RepDataJson : null;
         }
 
         #region NavigationInfo

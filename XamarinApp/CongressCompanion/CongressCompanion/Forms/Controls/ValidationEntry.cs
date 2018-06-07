@@ -18,6 +18,12 @@ namespace AE_Xamarin.Forms.Controls
         {
             get
             {
+                //Check For Text
+                if(Text == null)
+                {
+                    return false;
+                }
+
                 //Check Regex
                 return Regex.IsMatch(Text, RegexPattern);
             }
@@ -37,6 +43,10 @@ namespace AE_Xamarin.Forms.Controls
 
             //Add Event To Validate The Number
             Unfocused += ValidationEntry_Unfocused;
+
+            //Set Text Color
+            TextColor = AppThemeManager.Instance.CurrentTheme.TextColor;
+            PlaceholderColor = AppThemeManager.Instance.CurrentTheme.TextColor;
         }
         private void ValidationEntry_Unfocused(object sender, FocusEventArgs e)
         {

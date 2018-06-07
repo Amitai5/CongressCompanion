@@ -51,19 +51,18 @@ namespace CongressCompanion
             if (!string.IsNullOrEmpty(LocalRep.PhoneNumber))
             {
                 PhoneLBL.Text = LocalRep.PhoneNumber;
-                PhoneLBL.GestureRecognizers.Add(new TapGestureRecognizer { Command = new Command(() => Device.OpenUri(new Uri(string.Format("tel:{0}", LocalRep.PhoneNumber)))) });
             }
             else
             {
                 //Disable The Item
                 PhoneLBL.IsVisible = false;
+                //CallBTN.IsVisible = false;
             }
 
             //Check For Website
             if (LocalRep.Website != null)
             {
                 WebsiteLBL.Text = LocalRep.Website.ToString();
-                WebsiteLBL.GestureRecognizers.Add(new TapGestureRecognizer { Command = new Command(() => Device.OpenUri(LocalRep.Website)) });
             }
             else
             {

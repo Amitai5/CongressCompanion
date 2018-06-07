@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Xamarin.Forms.Internals;
 
 namespace CongressCompanion.ClassObjects
 {
+    [Preserve(AllMembers = true)]
     public class Rootobject
     {
         public string kind { get; set; }
@@ -13,6 +15,7 @@ namespace CongressCompanion.ClassObjects
         public Official[] officials { get; set; }
     }
 
+    [Preserve(AllMembers = true)]
     public class Normalizedinput
     {
         public string line1 { get; set; }
@@ -21,24 +24,28 @@ namespace CongressCompanion.ClassObjects
         public string zip { get; set; }
     }
 
+    [Preserve(AllMembers = true)]
     public class Divisions
     {
         public OcdDivisionCountryUs ocddivisioncountryus { get; set; }
         public OcdDivisionCountryUsStateCa ocddivisioncountryusstateca { get; set; }
     }
 
+    [Preserve(AllMembers = true)]
     public class OcdDivisionCountryUs
     {
         public string name { get; set; }
         public int[] officeIndices { get; set; }
     }
 
+    [Preserve(AllMembers = true)]
     public class OcdDivisionCountryUsStateCa
     {
         public string name { get; set; }
         public int[] officeIndices { get; set; }
     }
 
+    [Preserve(AllMembers = true)]
     public class Office
     {
         public string name { get; set; }
@@ -48,6 +55,7 @@ namespace CongressCompanion.ClassObjects
         public int[] officialIndices { get; set; }
     }
 
+    [Preserve(AllMembers = true)]
     public class Official
     {
         public string name { get; set; }
@@ -60,6 +68,7 @@ namespace CongressCompanion.ClassObjects
         public string[] emails { get; set; }
     }
 
+    [Preserve(AllMembers = true)]
     public class Address
     {
         public string line1 { get; set; }
@@ -69,6 +78,7 @@ namespace CongressCompanion.ClassObjects
         public string zip { get; set; }
     }
 
+    [Preserve(AllMembers = true)]
     public class Channel
     {
         public string type { get; set; }

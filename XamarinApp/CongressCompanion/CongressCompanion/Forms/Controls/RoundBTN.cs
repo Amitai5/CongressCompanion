@@ -28,7 +28,7 @@ namespace AE_Xamarin.Forms.Controls
         public RoundBTN()
         {
             //Set Default Color
-            BackgroundColor = AppThemeManager.Instance.CurrentTheme.BackgroundColor;
+            BackgroundColor = AppThemeManager.Instance.CurrentTheme.NavBarColor;
 
             //Set Default Padding
             Margin = new Thickness(5, 5, 5, 5);

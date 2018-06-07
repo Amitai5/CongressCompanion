@@ -65,7 +65,7 @@ namespace CongressCompanion
                     VerticalOptions = new LayoutOptions(LayoutAlignment.Center, false),
                     TextColor = AppThemeManager.Instance.CurrentTheme.TextColor,
                     HorizontalTextAlignment = TextAlignment.Start,
-                    Text = "No Local Officals Were Found...",
+                    Text = "Could Not Find Local Officals...",
                     FontSize = 18
                 };
                 MainLayout.Children.Add(NoRepsFound);
