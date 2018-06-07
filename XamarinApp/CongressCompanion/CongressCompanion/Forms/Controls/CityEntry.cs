@@ -4,20 +4,20 @@ using Xamarin.Forms;
 
 namespace AE_Xamarin.Forms.Controls
 {
-    public class AddressEntry : ValidationEntry
+    public class CityEntry : ValidationEntry
     {
         //Store Origional Color
         private Color? TextBaseColor = null;
 
-        public AddressEntry() : base(BasicRegex.RegexPatters.StreetAddressValidation)
+        public CityEntry() : base(BasicRegex.RegexPatters.CityNameValidation)
         {
             //Set Default Info
             Keyboard = Keyboard.Plain;
 
             //Add Event To Validate The Number
-            Unfocused += AddressEntry_Unfocused;
+            Unfocused += CityEntry_Unfocused;
         }
-        private void AddressEntry_Unfocused(object sender, FocusEventArgs e)
+        private void CityEntry_Unfocused(object sender, FocusEventArgs e)
         {
             //Check Validity
             if (!IsValid)

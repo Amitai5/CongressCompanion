@@ -17,7 +17,12 @@ namespace AE_Xamarin.Misc
             /// <summary>
             /// The Validation REGEX String For Names.
             /// </summary>
-            public const string NameValidation = @"(?=\w{8,})(^([A-Z|[a-z]|\d)*(?=[A-Z]+)([A-Z|[a-z]|\d)*$)";
+            public const string NameValidation = @"^[a-zA-Z]+(?:[\s-][a-zA-Z]+)*$";
+
+            /// <summary>
+            /// The Validation REGEX String For Cities.
+            /// </summary>
+            public const string CityNameValidation = @"(?=\w{8,})(^([A-Z|[a-z]|\d)*(?=[A-Z]+)([A-Z|[a-z]|\d)*$)";
 
             /// <summary>
             /// The Validation REGEX String For Emails.
@@ -123,6 +128,23 @@ namespace AE_Xamarin.Misc
 
             //Run The Regex
             return Regex.IsMatch(Address, RegexPatters.StreetAddressValidation);
+        }
+
+        /// <summary>
+        /// Checks If The Given City Name Is Valid.
+        /// </summary>
+        /// <param name="CityName">The City To Check.</param>
+        /// <returns>Bool Valid.</returns>
+        public static bool IsValidCity(string CityName)
+        {
+            //Make Sure There Is Text There
+            if (String.IsNullOrEmpty(CityName))
+            {
+                return false;
+            }
+
+            //Run The Regex
+            return Regex.IsMatch(CityName, RegexPatters.CityNameValidation);
         }
     }
 }

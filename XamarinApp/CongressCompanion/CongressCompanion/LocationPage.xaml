@@ -12,8 +12,8 @@
                 <StackLayout Spacing="8">
                     <custom:AddressEntry x:Name="AddressTxtBox" HorizontalTextAlignment="Center" HorizontalOptions="FillAndExpand" Placeholder="Street Address" IsVisible="True" TextChanged="AddressTxtBox_TextChanged" />
                     <StackLayout x:Name="AddressFieldsHolder" HorizontalOptions="FillAndExpand" Orientation="Horizontal" IsVisible="False">
-                        <custom:AddressEntry x:Name="CityTxtBox" HorizontalTextAlignment="Center" HorizontalOptions="StartAndExpand" WidthRequest="200" Placeholder="City" />
-                        <Picker x:Name="StatePicker" HorizontalOptions="EndAndExpand" WidthRequest="75" Title="State" />
+                        <custom:CityEntry x:Name="CityTxtBox" HorizontalTextAlignment="Center" HorizontalOptions="StartAndExpand" WidthRequest="200" Placeholder="City" />
+                        <Picker x:Name="StatePicker" HorizontalOptions="EndAndExpand" WidthRequest="75" Focused="StatePicker_Focused" />
                     </StackLayout>
 
                     <Label x:Name="SeparatorLBL" Text="Or" FontSize="18" TextColor="White" HorizontalTextAlignment="Center" HorizontalOptions="CenterAndExpand" />

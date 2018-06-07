@@ -19,14 +19,15 @@ namespace CongressCompanion
             LoadingIcon.Color = Color.FromHex("#ECAB66"); //Set The Loading Icon To A Goldish
             ReloadThemeColors();
 
-            //Set State Values
-            string[] StateAbrev = new string[] { "AK", "AL", "AR", "AS", "AZ", "CA", "CO", "CT", "DC", "DE", "FL", "GA", "GU", "HI", "IA", "ID", "IL", "IN", "KS", "KY", "LA",
+            //Set State Values (Add State Temporarily)
+            string[] StateAbrev = new string[] { "State", "AK", "AL", "AR", "AS", "AZ", "CA", "CO", "CT", "DC", "DE", "FL", "GA", "GU", "HI", "IA", "ID", "IL", "IN", "KS", "KY", "LA",
                 "MA", "MD", "ME", "MI", "MN", "MO", "MS", "MT", "NC", "ND", "NE", "NH", "NJ", "NM", "NV", "NY", "OH", "OK", "OR", "PA", "PR", "RI", "SC", "SD", "TN", "TX", "UT",
                 "VA", "VI", "VT", "WA", "WI", "WV", "WY" };
-            for(int i = 0; i < StateAbrev.Length; i++)
+            for (int i = 0; i < StateAbrev.Length; i++)
             {
                 StatePicker.Items.Add(StateAbrev[i]);
             }
+            StatePicker.SelectedIndex = 0;
         }
 
         public async void LoadNextPage(object sender, EventArgs e)
@@ -54,25 +55,41 @@ namespace CongressCompanion
                 IsZipcodeSearch = !string.IsNullOrEmpty(ZipcodeTxtBox.Text);
             }
 
-            //Check Valididty
-            if (!AddressTxtBox.IsValid && !ZipcodeTxtBox.IsValid)
-            {
-                await DisplayAlert("Not Valid", "Not A Valid Location", "OK");
-                LoadingIcon.IsVisible = false;
-                IsLoadingNextPage = false;
-                return;
-            }
-
             //Check How They Want To Search
-            if(IsZipcodeSearch)
+            if (IsZipcodeSearch)
             {
                 AppManager.Instance.UserLocationInfo = ZipcodeTxtBox.Text.Trim();
+
+                //Check Zipcode Validity
+                if (!ZipcodeTxtBox.IsValid)
+                {
+                    await DisplayAlert("Not Valid", "Not A Valid Zipcode", "OK");
+                    LoadingIcon.IsVisible = false;
+                    IsLoadingNextPage = false;
+                    return;
+                }
             }
             else
             {
                 //Get Address Info
                 string Address = $"{AddressTxtBox.Text.Trim()}, {CityTxtBox.Text.Trim()} {StatePicker.SelectedItem.ToString()}";
                 AppManager.Instance.UserLocationInfo = Address.Trim();
+
+                //Check Address Validity
+                if (!AddressTxtBox.IsValid)
+                {
+                    await DisplayAlert("Not Valid", "Not A Valid Address", "OK");
+                    LoadingIcon.IsVisible = false;
+                    IsLoadingNextPage = false;
+                    return;
+                }
+                else if(!CityTxtBox.IsValid)
+                {
+                    await DisplayAlert("Not Valid", "Not A Valid City", "OK");
+                    LoadingIcon.IsVisible = false;
+                    IsLoadingNextPage = false;
+                    return;
+                }
             }
 
             //Load All The Info
@@ -108,6 +125,14 @@ namespace CongressCompanion
             ReloadThemeColors();
         }
 
+        private void StatePicker_Focused(object sender, FocusEventArgs e)
+        {
+            //Remove The State The First Time It Loads
+            if (StatePicker.Items.Contains("State"))
+            {
+                StatePicker.Items.RemoveAt(0);
+            }
+        }
         private void AddressTxtBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             //Check If They Are Using This Side
