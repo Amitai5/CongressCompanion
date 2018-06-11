@@ -4,7 +4,7 @@
              xmlns:custom="clr-namespace:AE_Xamarin.Forms.Controls"
              x:Class="CongressCompanion.RepProfilePage">
     <ContentPage.Content>
-        <StackLayout x:Name="MainLayout" VerticalOptions="FillAndExpand" Padding="20, 20, 20, 20" Spacing="32">
+        <StackLayout x:Name="MainLayout" Padding="20, 20, 20, 20" Spacing="32">
             <StackLayout VerticalOptions="Start">
                 <StackLayout x:Name="ImageLayout" Orientation="Horizontal" Spacing="0">
                     <StackLayout Spacing="12" HorizontalOptions="Start">
@@ -17,15 +17,17 @@
                 <StackLayout x:Name="TitleLayout" />
                 <BoxView HorizontalOptions="CenterAndExpand" HeightRequest="2" WidthRequest="350" Color="#ECAB66" />
             </StackLayout>
-            <Label x:Name="PartyLBL" Font="24" HorizontalTextAlignment="Center" FontAttributes="Bold" />
 
-            <StackLayout x:Name="ContactLayout" VerticalOptions="End" Padding="20, 20, 20, 20" >
-                <Label x:Name="PhoneLBL" Font="24" HorizontalTextAlignment="Center" FontAttributes="Bold" />
-                <Label x:Name="WebsiteLBL" Font="24" HorizontalTextAlignment="Center" FontAttributes="Bold" />
+            <StackLayout VerticalOptions="CenterAndExpand" Spacing="36">
+                <Label x:Name="PartyLBL" Font="24" HorizontalTextAlignment="Start" FontAttributes="Bold" />
+                <Label x:Name="PhoneLBL" Font="24" HorizontalTextAlignment="Start" FontAttributes="Bold" />
+            </StackLayout>
+
+            <StackLayout x:Name="ContactLayout" VerticalOptions="End" Padding="20, 20, 20, 20" Spacing="8" >
+                <Label x:Name="WebsiteLBL" Font="24" HorizontalTextAlignment="Start" FontAttributes="Bold" />
             </StackLayout>
 
             <!--<StackLayout x:Name="ContactButtons" Orientation="Horizontal" VerticalOptions="End" HorizontalOptions="FillAndExpand">
-                <custom:RoundBTN x:Name="CallBTN" ButtonRadius="35" HorizontalOptions="StartAndExpand" Image="PhoneCall.png" />
                 <custom:RoundBTN x:Name="EmailBTN" ButtonRadius="35" HorizontalOptions="CenterAndExpand" />
                 <custom:RoundBTN x:Name="WebsiteBTN" ButtonRadius="35" HorizontalOptions="EndAndExpand" />
             </StackLayout>-->

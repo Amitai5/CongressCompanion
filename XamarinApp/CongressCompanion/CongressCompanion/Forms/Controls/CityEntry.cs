@@ -12,7 +12,7 @@ namespace AE_Xamarin.Forms.Controls
         public CityEntry() : base(BasicRegex.RegexPatters.CityNameValidation)
         {
             //Set Default Info
-            Keyboard = Keyboard.Plain;
+            Keyboard = Keyboard.Create(KeyboardFlags.CapitalizeSentence | KeyboardFlags.Suggestions);
 
             //Add Event To Validate The Number
             Unfocused += CityEntry_Unfocused;

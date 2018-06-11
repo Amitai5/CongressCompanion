@@ -125,14 +125,26 @@ namespace CongressCompanion
             ReloadThemeColors();
         }
 
+        bool JustRemoved = false;
         private void StatePicker_Focused(object sender, FocusEventArgs e)
         {
             //Remove The State The First Time It Loads
             if (StatePicker.Items.Contains("State"))
             {
+                JustRemoved = true;
                 StatePicker.Items.RemoveAt(0);
             }
         }
+        private void StatePicker_Unfocused(object sender, FocusEventArgs e)
+        {
+            //Run The Offset Of The State Picker Index
+            if(JustRemoved)
+            {
+                StatePicker.SelectedIndex--;
+                JustRemoved = false;
+            }
+        }
+
         private void AddressTxtBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             //Check If They Are Using This Side

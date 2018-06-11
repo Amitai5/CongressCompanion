@@ -19,13 +19,13 @@ namespace AE_Xamarin.Forms.Controls
             get
             {
                 //Check For Text
-                if(Text == null)
+                if (Text == null)
                 {
                     return false;
                 }
 
                 //Check Regex
-                return Regex.IsMatch(Text, RegexPattern);
+                return Regex.IsMatch(Text.Trim(), RegexPattern);
             }
         }
         private readonly string RegexPattern = "";
@@ -40,7 +40,7 @@ namespace AE_Xamarin.Forms.Controls
         {
             //Save Pattern
             RegexPattern = Pattern;
-
+            
             //Add Event To Validate The Number
             Unfocused += ValidationEntry_Unfocused;
 
