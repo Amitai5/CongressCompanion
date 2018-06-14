@@ -22,16 +22,21 @@ namespace CongressCompanion
 
             //Set Colors
             NameLBL.TextColor = AppThemeManager.Instance.CurrentTheme.TextColor;
-            PartyLBL.TextColor = AppThemeManager.Instance.CurrentTheme.TextColor;
             TitleLBL.TextColor = AppThemeManager.Instance.CurrentTheme.TextColor;
+            PartyLBL.TextColor = AppThemeManager.Instance.CurrentTheme.TextColor;
             PhoneLBL.TextColor = AppThemeManager.Instance.CurrentTheme.TextColor;
             WebsiteLBL.TextColor = AppThemeManager.Instance.CurrentTheme.TextColor;
+
+            PartyHeader.TextColor = AppThemeManager.Instance.CurrentTheme.TextColor;
+            PhoneHeader.TextColor = AppThemeManager.Instance.CurrentTheme.TextColor;
+            WebsiteHeader.TextColor = AppThemeManager.Instance.CurrentTheme.TextColor;
             ContactLayout.BackgroundColor = AppThemeManager.Instance.CurrentTheme.NavBarColor;
+            CenterLayout.BackgroundColor = AppThemeManager.Instance.CurrentTheme.BackgroundColor;
 
             //Load Data
             NameLBL.Text = LocalRep.FullName;
             TitleLBL.Text = LocalRep.OfficeName;
-            PartyLBL.Text = $"Political Alignment: {LocalRep.Party}";
+            PartyLBL.Text = LocalRep.Party.ToString();
 
             //Check For Profile Image
             if (LocalRep.ImageUrl != null)
