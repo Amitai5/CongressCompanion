@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:flex="clr-namespace:Flex.Controls;assembly=Flex"
              x:Class="CongressCompanion.RepProfilePage">
     <ContentPage.Content>
         <StackLayout x:Name="MainLayout" Padding="20, 20, 20, 20" Spacing="32">
@@ -14,28 +15,28 @@
                 </StackLayout>
 
                 <StackLayout x:Name="TitleLayout" />
-                <BoxView HorizontalOptions="CenterAndExpand" HeightRequest="2" WidthRequest="350" Color="#ECAB66" />
+                <BoxView HorizontalOptions="FillAndExpand" HeightRequest="2" Color="#ECAB66" />
             </StackLayout>
 
             <StackLayout x:Name="CenterLayout" VerticalOptions="CenterAndExpand" Spacing="20" Padding="10, 10, 10, 10">
                 <StackLayout VerticalOptions="Start">
                     <Label x:Name="PartyHeader" Font="24" HorizontalTextAlignment="Start" FontAttributes="Bold" Text="Party:" />
-                    <Label x:Name="PartyLBL" Font="20" HorizontalTextAlignment="Center" FontAttributes="Bold" />
+                    <Label x:Name="PartyLBL" Margin="20,0"  Font="20" HorizontalTextAlignment="Start" FontAttributes="Bold" />
                 </StackLayout>
 
                 <StackLayout VerticalOptions="CenterAndExpand">
                     <Label x:Name="PhoneHeader" Font="24" HorizontalTextAlignment="Start" FontAttributes="Bold" Text="Phone:" />
-                    <Label x:Name="PhoneLBL" Font="20" HorizontalTextAlignment="Center" FontAttributes="Bold" />
+                    <Label x:Name="PhoneLBL" Margin="20,0"  Font="20" HorizontalTextAlignment="Start" FontAttributes="Bold" />
                 </StackLayout>
 
                 <StackLayout VerticalOptions="End">
                     <Label x:Name="WebsiteHeader" Font="24" HorizontalTextAlignment="Start" FontAttributes="Bold" Text="Website:" />
-                    <Label x:Name="WebsiteLBL" Font="20" HorizontalTextAlignment="Center" FontAttributes="Bold" />
+                    <Label x:Name="WebsiteLBL" Margin="20,0"  Font="20" HorizontalTextAlignment="Start" FontAttributes="Bold" />
                 </StackLayout>
             </StackLayout>
 
             <StackLayout x:Name="ContactLayout" Orientation="Horizontal" VerticalOptions="End" Padding="20, 20, 20, 20" Spacing="8">
-                <!--<flex:FlexButton WidthRequest="76" HeightRequest="76" CornerRadius="38" Icon="PhoneCall.png" />-->
+                <flex:FlexButton HeightRequest="76" WidthRequest="76" BackgroundColor="BlanchedAlmond" />
             </StackLayout>
         </StackLayout>
     </ContentPage.Content>

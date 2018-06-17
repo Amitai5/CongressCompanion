@@ -45,6 +45,7 @@ namespace AE_Xamarin.Forms.Controls
             Unfocused += ValidationEntry_Unfocused;
 
             //Set Text Color
+            BackgroundColor = Color.Transparent;
             TextColor = AppThemeManager.Instance.CurrentTheme.TextColor;
             PlaceholderColor = AppThemeManager.Instance.CurrentTheme.TextColor;
         }

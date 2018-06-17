@@ -18,20 +18,8 @@ namespace CongressCompanion
         public RepProfilePage(Representative local)
         {
             InitializeComponent();
+            UpdateThemeColors();
             LocalRep = local;
-
-            //Set Colors
-            NameLBL.TextColor = AppThemeManager.Instance.CurrentTheme.TextColor;
-            TitleLBL.TextColor = AppThemeManager.Instance.CurrentTheme.TextColor;
-            PartyLBL.TextColor = AppThemeManager.Instance.CurrentTheme.TextColor;
-            PhoneLBL.TextColor = AppThemeManager.Instance.CurrentTheme.TextColor;
-            WebsiteLBL.TextColor = AppThemeManager.Instance.CurrentTheme.TextColor;
-
-            PartyHeader.TextColor = AppThemeManager.Instance.CurrentTheme.TextColor;
-            PhoneHeader.TextColor = AppThemeManager.Instance.CurrentTheme.TextColor;
-            WebsiteHeader.TextColor = AppThemeManager.Instance.CurrentTheme.TextColor;
-            ContactLayout.BackgroundColor = AppThemeManager.Instance.CurrentTheme.NavBarColor;
-            CenterLayout.BackgroundColor = AppThemeManager.Instance.CurrentTheme.BackgroundColor;
 
             //Load Data
             NameLBL.Text = LocalRep.FullName;
@@ -73,6 +61,27 @@ namespace CongressCompanion
             {
                 //Disable The Item
                 WebsiteLBL.IsVisible = false;
+            }
+        }
+
+        private void UpdateThemeColors()
+        {
+            //Set Colors
+            NameLBL.TextColor = AppThemeManager.Instance.CurrentTheme.TextColor;
+            TitleLBL.TextColor = AppThemeManager.Instance.CurrentTheme.TextColor;
+            PartyLBL.TextColor = AppThemeManager.Instance.CurrentTheme.TextColor;
+            PhoneLBL.TextColor = AppThemeManager.Instance.CurrentTheme.TextColor;
+            WebsiteLBL.TextColor = AppThemeManager.Instance.CurrentTheme.TextColor;
+
+            PartyHeader.TextColor = AppThemeManager.Instance.CurrentTheme.TextColor;
+            PhoneHeader.TextColor = AppThemeManager.Instance.CurrentTheme.TextColor;
+            WebsiteHeader.TextColor = AppThemeManager.Instance.CurrentTheme.TextColor;
+            CenterLayout.BackgroundColor = AppThemeManager.Instance.CurrentTheme.BackgroundColor;
+
+            //Update The Contact BTN Colors
+            foreach (View ContactButton in ContactLayout.Children)
+            {
+                ContactButton.BackgroundColor = AppThemeManager.Instance.CurrentTheme.NavBarColor;
             }
         }
     }

@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
-    <ProjectGuid>{419BB421-52EB-41BD-9C6B-543E95FEC06C}</ProjectGuid>
+    <ProjectGuid>{006F10FD-A424-4742-B986-F4A3C4A484DD}</ProjectGuid>
     <OutputType>AppContainerExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>CongressCompanion.UWP</RootNamespace>
@@ -103,9 +103,11 @@
     </AppxManifest>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\CongressIcon.png" />
     <Content Include="Assets\LargeTile.scale-100.png" />
     <Content Include="Assets\LargeTile.scale-200.png" />
     <Content Include="Assets\LargeTile.scale-400.png" />
+    <Content Include="Assets\PhoneCall.png" />
     <Content Include="Assets\SmallTile.scale-100.png" />
     <Content Include="Assets\SmallTile.scale-200.png" />
     <Content Include="Assets\SmallTile.scale-400.png" />
@@ -143,12 +145,18 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="Forms.Controls.FlexButton">
+      <Version>0.7.0</Version>
+    </PackageReference>
+    <PackageReference Include="Newtonsoft.Json">
+      <Version>11.0.2</Version>
+    </PackageReference>
     <PackageReference Include="Xamarin.Forms" Version="3.0.0.561731" />
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform" Version="6.1.5" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CongressCompanion\CongressCompanion.csproj">
-      <Project>{3E72CAFF-5468-4E4A-8BE3-F235FAE2A675}</Project>
+      <Project>{16BDC0FD-00BB-4CDE-8CB1-CB9AED1F8161}</Project>
       <Name>CongressCompanion</Name>
     </ProjectReference>
   </ItemGroup>

@@ -7,15 +7,15 @@
   IgnorableNamespaces="uap mp">
 
   <Identity
-    Name="3409f793-b91b-44dc-afc6-17b9f5332e25"
-    Publisher="CN=d6fbe175-465a-428b-9075-b54fa8be320e"
+    Name="51590e79-dc32-469e-ab4e-0bb814f3dfdf"
+    Publisher="CN=f125d91b-1c87-4287-82bc-0574edec175d"
     Version="1.0.0.0" />
 
   <mp:PhoneIdentity PhoneProductId="ec0cc741-fd3e-485c-81be-68815c480690" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
   <Properties>
     <DisplayName>CongressCompanion.UWP</DisplayName>
-    <PublisherDisplayName>d6fbe175-465a-428b-9075-b54fa8be320e</PublisherDisplayName>
+    <PublisherDisplayName>f125d91b-1c87-4287-82bc-0574edec175d</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
 
