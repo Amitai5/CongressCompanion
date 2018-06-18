@@ -14,6 +14,15 @@ namespace CongressCompanion
         {
             InitializeComponent();
 
+            //Check If The Location Is Already Loaded In
+            if (!string.IsNullOrEmpty(AppManager.Instance.UserLocationInfo))
+            {
+                Navigation.PushModalAsync(new MainPage());
+                Navigation.RemovePage(this);
+                return;
+            }
+
+            //Otherwise Load This
             AppThemeManager.Instance.AppThemeChange += Instance_AppThemeChange;
             CongressSealImg.Source = ImageSource.FromFile("CongressIcon.png");
             LoadingIcon.Color = Color.FromHex("#ECAB66"); //Set The Loading Icon To A Goldish
@@ -138,7 +147,7 @@ namespace CongressCompanion
         private void StatePicker_Unfocused(object sender, FocusEventArgs e)
         {
             //Run The Offset Of The State Picker Index
-            if(JustRemoved)
+            if (JustRemoved)
             {
                 StatePicker.SelectedIndex--;
                 JustRemoved = false;

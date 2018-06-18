@@ -3,6 +3,7 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Xml;
@@ -21,6 +22,7 @@ namespace CongressCompanion.ClassObjects
                     new MainPageMenuItem { Id = 0, Title = "Federal" },
                     new MainPageMenuItem { Id = 1, Title = "State" },
                     new MainPageMenuItem { Id = 2, Title = "Local" },
+                    new MainPageMenuItem { Id = 3, Title = "Settings" }
                 });
 
             //Set Themes
@@ -29,6 +31,9 @@ namespace CongressCompanion.ClassObjects
                 { "USATheme", new AppTheme("#F9F3EB", "#CF1942", "#1D407C") }
             };
             AppThemeManager.Create(Themes);
+
+            //Load The Data
+            LoadSaveData();
         }
         public static AppManager Instance
         {
@@ -53,7 +58,7 @@ namespace CongressCompanion.ClassObjects
         /// Store Their Current Street Address.
         /// </summary>
         public string UserLocationInfo = "";
-
+        
         /// <summary>
         /// The List Of Representatives For The Government Offices In The Federal Government.
         /// </summary>
@@ -96,7 +101,7 @@ namespace CongressCompanion.ClassObjects
                 Official CurrentOfficial = JsonData.officials[RepIndex];
                 TempRepList.Add(new Representative(CurrentOfficial.urls, CurrentOfficial.photoUrl, CurrentOfficial.name, CurrentOfficial.phones, CurrentOfficial.emails, CurrentOfficial.party));
             }
-            
+
             //Load Up Gov Positions
             for (int officeIndex = 0; officeIndex < JsonData.offices.Length; officeIndex++)
             {
@@ -119,11 +124,11 @@ namespace CongressCompanion.ClassObjects
             SortAllReps(TempRepList);
             return true;
         }
-        
+
         /// <summary>
-        /// Sorts The List Of Representatives Into Three Separate Lists.
+        /// The API Call Format.
         /// </summary>
-        /// <param name="TempRepList">The List To Sort.</param>
+        private const string APICallFormat = "https://www.googleapis.com/civicinfo/v2/representatives?address={0}&key={1}";
         private void SortAllReps(List<Representative> TempRepList)
         {
             //Sort By Gov Level
@@ -152,16 +157,6 @@ namespace CongressCompanion.ClassObjects
             StateReps.Sort();
             LocalReps.Sort();
         }
-
-        /// <summary>
-        /// The API Call Format.
-        /// </summary>
-        private const string APICallFormat = "https://www.googleapis.com/civicinfo/v2/representatives?address={0}&key={1}";
-
-        /// <summary>
-        /// Makes A Call To The API To Get Representative Data.
-        /// </summary>
-        /// <returns>String Json Data | If Null, Address Was Invalid</returns>
         private async Task<string> GetRepData()
         {
             //Get Info
@@ -195,6 +190,9 @@ namespace CongressCompanion.ClassObjects
                     break;
                 case "local":
                     EmbededPage = new LocalRepsPage();
+                    break;
+                case "settings":
+                    EmbededPage = new SettingsPage();
                     break;
                 default:
                     EmbededPage = new ContentPage();
