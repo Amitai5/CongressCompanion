@@ -106,11 +106,11 @@ namespace CongressCompanion.ClassObjects
                     string[] OfficeLevels = JsonData.offices[officeIndex].levels;
                     if (OfficeLevels != null && OfficeLevels.Length > 0)
                     {
-                        TempRepList[OfficialIndex].SetOfficeData(JsonData.offices[officeIndex].name, JsonData.offices[officeIndex].divisionId, OfficeLevels[0]);
+                        TempRepList[OfficialIndex].SetOfficeData(officeIndex, JsonData.offices[officeIndex].name, JsonData.offices[officeIndex].divisionId, OfficeLevels[0]);
                     }
                     else
                     {
-                        TempRepList[OfficialIndex].SetOfficeData(JsonData.offices[officeIndex].name, JsonData.offices[officeIndex].divisionId, "");
+                        TempRepList[OfficialIndex].SetOfficeData(officeIndex, JsonData.offices[officeIndex].name, JsonData.offices[officeIndex].divisionId, "");
                     }
                 }
             }

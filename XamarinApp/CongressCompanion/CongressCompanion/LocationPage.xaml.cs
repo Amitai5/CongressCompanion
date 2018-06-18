@@ -71,10 +71,6 @@ namespace CongressCompanion
             }
             else
             {
-                //Get Address Info
-                string Address = $"{AddressTxtBox.Text.Trim()}, {CityTxtBox.Text.Trim()} {StatePicker.SelectedItem.ToString()}";
-                AppManager.Instance.UserLocationInfo = Address.Trim();
-
                 //Check Address Validity
                 if (!AddressTxtBox.IsValid)
                 {
@@ -83,13 +79,17 @@ namespace CongressCompanion
                     IsLoadingNextPage = false;
                     return;
                 }
-                else if(!CityTxtBox.IsValid)
+                else if (!CityTxtBox.IsValid)
                 {
                     await DisplayAlert("Not Valid", "Not A Valid City", "OK");
                     LoadingIcon.IsVisible = false;
                     IsLoadingNextPage = false;
                     return;
                 }
+
+                //Get Address Info
+                string Address = $"{AddressTxtBox.Text.Trim()}, {CityTxtBox.Text.Trim()} {StatePicker.SelectedItem.ToString()}";
+                AppManager.Instance.UserLocationInfo = Address.Trim();
             }
 
             //Load All The Info

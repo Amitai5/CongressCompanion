@@ -104,15 +104,15 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\CongressIcon.png" />
-    <AndroidResource Include="Assets\Icons\Email.png">
+    <AndroidResource Include="Assets\Email.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </AndroidResource>
-    <AndroidResource Include="Assets\Icons\PhoneCall.png">
+    <AndroidResource Include="Assets\PhoneCall.png">
       <Generator>MSBuild:UpdateGeneratedFiles</Generator>
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </AndroidResource>
-    <AndroidResource Include="Assets\Icons\Website.png">
+    <AndroidResource Include="Assets\Website.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </AndroidResource>
     <Content Include="Assets\LargeTile.scale-100.png" />
@@ -169,6 +169,9 @@
       <Project>{16BDC0FD-00BB-4CDE-8CB1-CB9AED1F8161}</Project>
       <Name>CongressCompanion</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Assets\Icons\" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>

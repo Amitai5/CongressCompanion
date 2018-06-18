@@ -14,12 +14,15 @@ namespace CongressCompanion.ClassObjects
         public string PrimaryEmail { get; private set; }
         public PoliticalParty Party { get; private set; }
 
+        //Store Their Rank
+        private int RepOfficeIndex = -1;
+
         public Representative(string[] websites, string imageUrl, string fullName, string[] phoneNumbers, string[] emails, string party)
         {
             FullName = fullName;
-            
+
             //Check For No Image
-            if(!string.IsNullOrEmpty(imageUrl))
+            if (!string.IsNullOrEmpty(imageUrl))
             {
                 ImageUrl = new Uri(imageUrl);
             }
@@ -57,9 +60,11 @@ namespace CongressCompanion.ClassObjects
                 }
             }
         }
-
-        public void SetOfficeData(string officeName, string divisionID, string levelName)
+        public void SetOfficeData(int OfficeIndex, string officeName, string divisionID, string levelName)
         {
+            //Set Office Rank
+            RepOfficeIndex = OfficeIndex;
+
             //Check If It Exists Or Not Already
             if (string.IsNullOrEmpty(OfficeName))
             {
@@ -74,7 +79,8 @@ namespace CongressCompanion.ClassObjects
         {
             //Check Alphabetically
             Representative OtherRep = (Representative)obj;
-            return string.Compare(FullName, OtherRep.FullName, true);
+            return RepOfficeIndex.CompareTo(OtherRep.RepOfficeIndex);
+            //return string.Compare(FullName, OtherRep.FullName, true);
         }
     }
 }
