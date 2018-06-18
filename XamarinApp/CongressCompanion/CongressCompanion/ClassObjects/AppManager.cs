@@ -94,7 +94,7 @@ namespace CongressCompanion.ClassObjects
             for (int RepIndex = 0; RepIndex < JsonData.officials.Length; RepIndex++)
             {
                 Official CurrentOfficial = JsonData.officials[RepIndex];
-                TempRepList.Add(new Representative(CurrentOfficial.urls, CurrentOfficial.photoUrl, CurrentOfficial.name, CurrentOfficial.phones, CurrentOfficial.party));
+                TempRepList.Add(new Representative(CurrentOfficial.urls, CurrentOfficial.photoUrl, CurrentOfficial.name, CurrentOfficial.phones, CurrentOfficial.emails, CurrentOfficial.party));
             }
             
             //Load Up Gov Positions

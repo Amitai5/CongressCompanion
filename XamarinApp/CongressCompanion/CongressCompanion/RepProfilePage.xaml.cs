@@ -1,5 +1,6 @@
 ﻿using AE_Xamarin.Forms;
 using CongressCompanion.ClassObjects;
+using Flex.Controls;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,22 +15,22 @@ namespace CongressCompanion
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class RepProfilePage : ContentPage
     {
-        private Representative LocalRep;
+        private Representative CurrentRep;
         public RepProfilePage(Representative local)
         {
             InitializeComponent();
             UpdateThemeColors();
-            LocalRep = local;
+            CurrentRep = local;
 
             //Load Data
-            NameLBL.Text = LocalRep.FullName;
-            TitleLBL.Text = LocalRep.OfficeName;
-            PartyLBL.Text = LocalRep.Party.ToString();
+            NameLBL.Text = CurrentRep.FullName;
+            TitleLBL.Text = CurrentRep.OfficeName;
+            PartyLBL.Text = CurrentRep.Party.ToString();
 
             //Check For Profile Image
-            if (LocalRep.ImageUrl != null)
+            if (CurrentRep.ImageUrl != null)
             {
-                ProfilePhotoIMG.Source = LocalRep.ImageUrl;
+                ProfilePhotoIMG.Source = CurrentRep.ImageUrl;
             }
             else
             {
@@ -41,26 +42,34 @@ namespace CongressCompanion
             }
 
             //Check For Phone Number
-            if (!string.IsNullOrEmpty(LocalRep.PhoneNumber))
+            if (!string.IsNullOrEmpty(CurrentRep.PhoneNumber))
             {
-                PhoneLBL.Text = LocalRep.PhoneNumber;
+                PhoneLBL.Text = CurrentRep.PhoneNumber;
             }
             else
             {
                 //Disable The Item
                 PhoneLBL.IsVisible = false;
-                //CallBTN.IsVisible = false;
+                PhoneCallBTN.IsEnabled = false;
             }
 
             //Check For Website
-            if (LocalRep.Website != null)
+            if (CurrentRep.Website != null)
             {
-                WebsiteLBL.Text = LocalRep.Website.ToString();
+                WebsiteLBL.Text = CurrentRep.Website.ToString();
             }
             else
             {
                 //Disable The Item
+                WebsiteBTN.IsEnabled = false;
                 WebsiteLBL.IsVisible = false;
+            }
+
+            //Check For Email
+            if (string.IsNullOrEmpty(CurrentRep.PrimaryEmail))
+            {
+                //Disable The Item
+                EmailBTN.IsEnabled = false;
             }
         }
 
@@ -77,11 +86,26 @@ namespace CongressCompanion
             PhoneHeader.TextColor = AppThemeManager.Instance.CurrentTheme.TextColor;
             WebsiteHeader.TextColor = AppThemeManager.Instance.CurrentTheme.TextColor;
             CenterLayout.BackgroundColor = AppThemeManager.Instance.CurrentTheme.BackgroundColor;
+        }
 
-            //Update The Contact BTN Colors
-            foreach (View ContactButton in ContactLayout.Children)
+        private void Icon_Clicked(object sender, EventArgs e)
+        {
+            //Get Icon Name
+            FlexButton ButtonView = (FlexButton)sender;
+            string IconName = ButtonView.Icon.ToString();
+            IconName = IconName.Replace("File: ", "").Replace(".png", "");
+
+            switch (IconName.ToLower())
             {
-                ContactButton.BackgroundColor = AppThemeManager.Instance.CurrentTheme.NavBarColor;
+                case "phonecall":
+                    Device.OpenUri(new Uri($"tel:{CurrentRep.PhoneNumber.ToString()}"));
+                    break;
+                case "website":
+                    Device.OpenUri(CurrentRep.Website);
+                    break;
+                case "email":
+                    Device.OpenUri(new Uri($"mailto:{CurrentRep.PrimaryEmail}"));
+                    break;
             }
         }
     }

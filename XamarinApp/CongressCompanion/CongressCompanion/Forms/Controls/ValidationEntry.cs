@@ -33,7 +33,7 @@ namespace AE_Xamarin.Forms.Controls
         /// <summary>
         /// Fired When The Entry Has Finished Validating The Email.
         /// </summary>
-        public new event EventHandler<ValidationEventArgs> FinishedValidation;
+        public event EventHandler<ValidationEventArgs> FinishedValidation;
         public static readonly BindableProperty FinishedValidationProp = BindableProperty.Create("Finished Validation", typeof(ValidationEventArgs), typeof(EventHandler<ValidationEventArgs>));
 
         public ValidationEntry(string Pattern)

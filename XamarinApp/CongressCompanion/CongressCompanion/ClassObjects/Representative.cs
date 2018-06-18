@@ -11,9 +11,10 @@ namespace CongressCompanion.ClassObjects
         public string OfficeName { get; private set; }
         public string PhoneNumber { get; private set; }
         public string DivisionID { get; private set; }
+        public string PrimaryEmail { get; private set; }
         public PoliticalParty Party { get; private set; }
 
-        public Representative(string[] websites, string imageUrl, string fullName, string[] phoneNumbers, string party)
+        public Representative(string[] websites, string imageUrl, string fullName, string[] phoneNumbers, string[] emails, string party)
         {
             FullName = fullName;
             
@@ -22,17 +23,23 @@ namespace CongressCompanion.ClassObjects
             {
                 ImageUrl = new Uri(imageUrl);
             }
-            
+
+            //Check For No Phone Numbers
+            if (phoneNumbers != null && phoneNumbers.Length > 0)
+            {
+                PhoneNumber = phoneNumbers[0];
+            }
+
             //Check For No Websites
             if (websites != null && websites.Length > 0)
             {
                 Website = new Uri(websites[0]);
             }
 
-            //Check For No Phone Numbers
-            if (phoneNumbers != null && phoneNumbers.Length > 0)
+            //Check For No Emails
+            if (emails != null && emails.Length > 0)
             {
-                PhoneNumber = phoneNumbers[0];
+                PrimaryEmail = emails[0];
             }
 
             //Check Political Party

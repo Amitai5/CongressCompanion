@@ -35,8 +35,10 @@
                 </StackLayout>
             </StackLayout>
 
-            <StackLayout x:Name="ContactLayout" Orientation="Horizontal" VerticalOptions="End" Padding="20, 20, 20, 20" Spacing="8">
-                <flex:FlexButton HeightRequest="76" WidthRequest="76" BackgroundColor="BlanchedAlmond" />
+            <StackLayout x:Name="ContactLayout" Orientation="Horizontal" VerticalOptions="End" Padding="20, 20, 20, 20" Spacing="8"> <!--Must Hardcode The Values Of Color Due To Library-->
+                <flex:FlexButton x:Name="PhoneCallBTN" BackgroundColor="#CF1942" HeightRequest="76" WidthRequest="76" CornerRadius="38" Icon="PhoneCall.png" Clicked="Icon_Clicked" HorizontalOptions="Start" />
+                <flex:FlexButton x:Name="WebsiteBTN" BackgroundColor="#CF1942" HeightRequest="76" WidthRequest="76" CornerRadius="38" Icon="Website.png" Clicked="Icon_Clicked" HorizontalOptions="CenterAndExpand" />
+                <flex:FlexButton x:Name="EmailBTN" BackgroundColor="#CF1942" HeightRequest="76" WidthRequest="76" CornerRadius="38" Icon="Email.png" Clicked="Icon_Clicked" HorizontalOptions="End" />
             </StackLayout>
         </StackLayout>
     </ContentPage.Content>
