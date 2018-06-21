@@ -63,14 +63,14 @@ namespace CongressCompanion
         public void UpdateThemeColors()
         {
             ThemeLBL.TextColor = AppThemeManager.Instance.CurrentTheme.TextColor;
+            LocationLBL.TextColor = AppThemeManager.Instance.CurrentTheme.TextColor;
             ThemePicker.TextColor = AppThemeManager.Instance.CurrentTheme.TextColor;
             ResetDataBTN.TextColor = AppThemeManager.Instance.CurrentTheme.TextColor;
-            LocationEntry.TextColor = AppThemeManager.Instance.CurrentTheme.TextColor;
             SaveLocationLBL.TextColor = AppThemeManager.Instance.CurrentTheme.TextColor;
             ResetDataBTN.BackgroundColor = AppThemeManager.Instance.CurrentTheme.NavBarColor;
-            LocationEntry.PlaceholderColor = AppThemeManager.Instance.CurrentTheme.TextColor;
             MainLayout.BackgroundColor = AppThemeManager.Instance.CurrentTheme.BackgroundColor;
             EditLocationBTN.BackgroundColor = AppThemeManager.Instance.CurrentTheme.NavBarColor;
+            LocationLBLUnderline.BackgroundColor = AppThemeManager.Instance.CurrentTheme.TextColor;
             SavedLocationLayout.BackgroundColor = AppThemeManager.Instance.CurrentTheme.BackgroundColor;
 
             //Add More Margin Space For UWP
@@ -89,11 +89,11 @@ namespace CongressCompanion
             //Update The Text Based On Location Type
             if (AppManager.Instance.IsZipcode)
             {
-                LocationEntry.Placeholder = $"Zipcode: {AppManager.Instance.UserLocationInfo}";
+                LocationLBL.Text = $"Zipcode: {AppManager.Instance.UserLocationInfo}";
             }
             else
             {
-                LocationEntry.Placeholder = AppManager.Instance.UserLocationInfo;
+                LocationLBL.Text = AppManager.Instance.UserLocationInfo;
             }
         }
         private void Instance_AppThemeChange(object sender, ThemeChangeArgs e)
@@ -115,11 +115,11 @@ namespace CongressCompanion
                 //Update The Text Based On Location Type
                 if (AppManager.Instance.IsZipcode)
                 {
-                    LocationEntry.Placeholder = $"Zipcode: {AppManager.Instance.UserLocationInfo}";
+                    LocationLBL.Text = $"Zipcode: {AppManager.Instance.UserLocationInfo}";
                 }
                 else
                 {
-                    LocationEntry.Placeholder = AppManager.Instance.UserLocationInfo;
+                    LocationLBL.Text = AppManager.Instance.UserLocationInfo;
                 }
 
                 //Select The Current Theme
