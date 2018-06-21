@@ -12,7 +12,7 @@
                 <DataTemplate>
                     <ViewCell>
                         <StackLayout Padding="15" HorizontalOptions="FillAndExpand">
-                            <Label TextColor="#F9F3EB" VerticalOptions="FillAndExpand" VerticalTextAlignment="Center" Text="{Binding Title}" FontSize="24"/>
+                            <Label TextColor="#F9F3EB" VerticalTextAlignment="Center" Text="{Binding Title}" FontSize="24" />
                         </StackLayout>
                     </ViewCell>
                 </DataTemplate>

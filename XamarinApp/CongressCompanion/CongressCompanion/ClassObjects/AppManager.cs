@@ -31,9 +31,6 @@ namespace CongressCompanion.ClassObjects
                 { "USATheme", new AppTheme("#F9F3EB", "#CF1942", "#1D407C") }
             };
             AppThemeManager.Create(Themes);
-
-            //Load The Data
-            LoadSaveData();
         }
         public static AppManager Instance
         {

@@ -25,18 +25,20 @@ namespace CongressCompanion
             //Set The MainPageMasterView
             BindingContext = new MainPageMasterViewModel();
             ListView = MenuItemsListView;
+
+            
         }
 
         [Preserve(AllMembers = true)]
         class MainPageMasterViewModel : INotifyPropertyChanged
         {
             public ObservableCollection<MainPageMenuItem> MenuItems { get; set; }
-            
+
             public MainPageMasterViewModel()
             {
                 MenuItems = AppManager.Instance.AllTabPages;
             }
-            
+
             #region INotifyPropertyChanged Implementation
             public event PropertyChangedEventHandler PropertyChanged;
             void OnPropertyChanged([CallerMemberName] string propertyName = "")

@@ -72,16 +72,24 @@ namespace CongressCompanion
             }
         }
 
-        private void LoadProfilePage(Representative LocalRep)
+        private void LoadProfilePage(Representative CurrentRep)
         {
-            //Create New Page
-            ContentPage ProfilePage = new RepProfilePage(LocalRep)
+            if (CurrentRep.FullName.ToLower() != "vacant")
             {
-                Title = "Representative Profile"
-            };
+                //Create New Page
+                ContentPage ProfilePage = new RepProfilePage(CurrentRep)
+                {
+                    Title = "Representative Profile"
+                };
 
-            //Push The Page
-            Navigation.PushAsync(ProfilePage);
+                //Push The Page
+                Navigation.PushAsync(ProfilePage);
+            }
+            else
+            {
+                //Show Errorish Message
+                DisplayAlert("Vacant Seat", "The Desired Seat Does Not Yet Have A Representative", "Ok");
+            }
         }
     }
 }
