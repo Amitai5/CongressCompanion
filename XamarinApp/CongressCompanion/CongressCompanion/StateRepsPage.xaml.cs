@@ -72,6 +72,11 @@ namespace CongressCompanion
                 MainLayout.Children.Add(NoRepsFound);
             }
         }
+        protected override bool OnBackButtonPressed()
+        {
+            //Stop From Going Back To Start Page
+            return true;
+        }
 
         private void LoadProfilePage(Representative CurrentRep)
         {

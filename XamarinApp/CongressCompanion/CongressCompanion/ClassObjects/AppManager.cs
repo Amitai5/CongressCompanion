@@ -1,10 +1,12 @@
 ﻿using AE_Xamarin.Forms;
+using AE_Xamarin.Misc;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Net.Http;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Xml;
 using Xamarin.Forms;
@@ -52,9 +54,27 @@ namespace CongressCompanion.ClassObjects
         #endregion All The Singleton Stuff
 
         /// <summary>
-        /// Store Their Current Street Address.
+        /// Store Their Current Search Location.
         /// </summary>
-        public string UserLocationInfo = "";
+        public string UserLocationInfo
+        {
+            get
+            {
+                return LocationInfo;
+            }
+            set
+            {
+                //Store If Zipcode
+                IsZipcode = BasicRegex.IsValidZipcode(value);
+                LocationInfo = value;
+            }
+        }
+        private string LocationInfo;
+
+        /// <summary>
+        /// Store The Current Info Of What Location Type Is Saved.
+        /// </summary>
+        public bool IsZipcode = false;
         
         /// <summary>
         /// The List Of Representatives For The Government Offices In The Federal Government.

@@ -50,6 +50,7 @@ namespace CongressCompanion
             {
                 //Disable The Item
                 PhoneLBL.IsVisible = false;
+                PhoneHeader.IsVisible = false;
                 PhoneCallBTN.IsEnabled = false;
             }
 
@@ -63,6 +64,7 @@ namespace CongressCompanion
                 //Disable The Item
                 WebsiteBTN.IsEnabled = false;
                 WebsiteLBL.IsVisible = false;
+                WebsiteHeader.IsVisible = false;
             }
 
             //Check For Email

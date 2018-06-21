@@ -9,13 +9,15 @@ namespace CongressCompanion
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class LocationPage : ContentPage
     {
+        bool FromSettingsPage = false;
         bool IsLoadingNextPage = false;
-        public LocationPage()
+
+        public LocationPage(bool FromSettings = false)
         {
             InitializeComponent();
 
             //Check If The Location Is Already Loaded In
-            if (!string.IsNullOrEmpty(AppManager.Instance.UserLocationInfo))
+            if (!string.IsNullOrEmpty(AppManager.Instance.UserLocationInfo) && !FromSettings)
             {
                 Navigation.PushModalAsync(new MainPage());
                 Navigation.RemovePage(this);
@@ -37,6 +39,14 @@ namespace CongressCompanion
                 StatePicker.Items.Add(StateAbrev[i]);
             }
             StatePicker.SelectedIndex = 0;
+
+            //Check Where We Came From
+            if(FromSettings)
+            {
+                FromSettingsPage = true;
+                Title = "Update Location";
+                ConfirmBTN.Text = "Update Saved Location";
+            }
         }
 
         public async void LoadNextPage(object sender, EventArgs e)
@@ -111,10 +121,20 @@ namespace CongressCompanion
                 return;
             }
 
-            //Load Next Page
-            IsLoadingNextPage = false;
-            LoadingIcon.IsVisible = false;
-            await Navigation.PushModalAsync(new MainPage());
+            if (!FromSettingsPage)
+            {
+                //Load Next Page
+                IsLoadingNextPage = false;
+                LoadingIcon.IsVisible = false;
+                await Navigation.PushModalAsync(new MainPage());
+            }
+            else
+            {
+                //Go Back One Page To Make It Look Like We Compleated The Task
+                IsLoadingNextPage = false;
+                LoadingIcon.IsVisible = false;
+                await Navigation.PopAsync();
+            }
         }
 
         private void ReloadThemeColors()

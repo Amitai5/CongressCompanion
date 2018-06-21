@@ -65,11 +65,16 @@ namespace CongressCompanion
                     VerticalOptions = new LayoutOptions(LayoutAlignment.Center, false),
                     TextColor = AppThemeManager.Instance.CurrentTheme.TextColor,
                     HorizontalTextAlignment = TextAlignment.Start,
-                    Text = "Could Not Find Local Officals...",
+                    Text = "Could Not Find Local Officals... For More Accurate Results, Use The Full Address Instead Of Just A Zipcode.",
                     FontSize = 18
                 };
                 MainLayout.Children.Add(NoRepsFound);
             }
+        }
+        protected override bool OnBackButtonPressed()
+        {
+            //Stop From Going Back To Start Page
+            return true;
         }
 
         private void LoadProfilePage(Representative CurrentRep)
