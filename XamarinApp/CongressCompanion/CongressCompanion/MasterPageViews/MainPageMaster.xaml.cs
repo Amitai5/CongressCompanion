@@ -18,17 +18,24 @@ namespace CongressCompanion
         {
             InitializeComponent();
 
+            UpdateThemeColors();
             HeaderBar.Color = Color.FromHex("#ECAB66");
-            PageHeader.TextColor = AppThemeManager.Instance.CurrentTheme.TextColor;
-            BackgroundColor = AppThemeManager.Instance.CurrentTheme.BackgroundColor;
+            AppThemeManager.Instance.AppThemeChange += Instance_AppThemeChange;
 
             //Set The MainPageMasterView
             BindingContext = new MainPageMasterViewModel();
             ListView = MenuItemsListView;
-
-            
         }
-
+        private void UpdateThemeColors()
+        {
+            PageHeader.TextColor = AppThemeManager.Instance.CurrentTheme.TextColor;
+            BackgroundColor = AppThemeManager.Instance.CurrentTheme.BackgroundColor;
+        }
+        private void Instance_AppThemeChange(object sender, ThemeChangeArgs e)
+        {
+            UpdateThemeColors();
+        }
+        
         [Preserve(AllMembers = true)]
         class MainPageMasterViewModel : INotifyPropertyChanged
         {

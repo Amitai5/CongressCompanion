@@ -4,42 +4,45 @@
              xmlns:flex="clr-namespace:Flex.Controls;assembly=Flex"
              x:Class="CongressCompanion.RepProfilePage">
     <ContentPage.Content>
-        <StackLayout x:Name="MainLayout" Padding="20, 20, 20, 20" Spacing="32">
-            <StackLayout VerticalOptions="Start">
-                <StackLayout x:Name="ImageLayout" Orientation="Horizontal" Spacing="0">
-                    <StackLayout Spacing="12" HorizontalOptions="Start">
-                        <Label x:Name="NameLBL" HorizontalTextAlignment="Start" FontSize="32" FontAttributes="Bold" />
-                        <Label x:Name="TitleLBL" HorizontalTextAlignment="Start" FontSize="20" FontAttributes="Italic" />
-                    </StackLayout>
-                    <Image x:Name="ProfilePhotoIMG" HorizontalOptions="EndAndExpand" WidthRequest="150" HeightRequest="100" />
-                </StackLayout>
-
-                <StackLayout x:Name="TitleLayout" />
-                <BoxView HorizontalOptions="FillAndExpand" HeightRequest="2" Color="#ECAB66" />
-            </StackLayout>
-
-            <StackLayout x:Name="CenterLayout" VerticalOptions="CenterAndExpand" Spacing="20" Padding="10, 10, 10, 10">
+        <ScrollView>
+            <StackLayout x:Name="MainLayout" Padding="20, 20, 20, 20" Spacing="32">
                 <StackLayout VerticalOptions="Start">
-                    <Label x:Name="PartyHeader" Font="24" HorizontalTextAlignment="Start" FontAttributes="Bold" Text="Party:" />
-                    <Label x:Name="PartyLBL" Margin="20,0"  Font="20" HorizontalTextAlignment="Start" FontAttributes="Bold" />
+                    <StackLayout x:Name="ImageLayout" Orientation="Horizontal" Spacing="0">
+                        <StackLayout Spacing="12" HorizontalOptions="Start">
+                            <Label x:Name="NameLBL" HorizontalTextAlignment="Start" FontSize="32" FontAttributes="Bold" />
+                            <Label x:Name="TitleLBL" HorizontalTextAlignment="Start" FontSize="20" FontAttributes="Italic" />
+                        </StackLayout>
+                        <Image x:Name="ProfilePhotoIMG" HorizontalOptions="EndAndExpand" WidthRequest="150" HeightRequest="100" />
+                    </StackLayout>
+
+                    <StackLayout x:Name="TitleLayout" />
+                    <BoxView HorizontalOptions="FillAndExpand" HeightRequest="2" Color="#ECAB66" />
                 </StackLayout>
 
-                <StackLayout VerticalOptions="CenterAndExpand">
-                    <Label x:Name="PhoneHeader" Font="24" HorizontalTextAlignment="Start" FontAttributes="Bold" Text="Phone:" />
-                    <Label x:Name="PhoneLBL" Margin="20,0"  Font="20" HorizontalTextAlignment="Start" FontAttributes="Bold" />
+                <StackLayout x:Name="CenterLayout" VerticalOptions="CenterAndExpand" Spacing="20" Padding="10, 10, 10, 10">
+                    <StackLayout VerticalOptions="Start">
+                        <Label x:Name="PartyHeader" Font="24" HorizontalTextAlignment="Start" FontAttributes="Bold" Text="Party:" />
+                        <Label x:Name="PartyLBL" Margin="20,0"  Font="20" HorizontalTextAlignment="Start" FontAttributes="Bold" />
+                    </StackLayout>
+
+                    <StackLayout VerticalOptions="CenterAndExpand">
+                        <Label x:Name="PhoneHeader" Font="24" HorizontalTextAlignment="Start" FontAttributes="Bold" Text="Phone:" />
+                        <Label x:Name="PhoneLBL" Margin="20,0"  Font="20" HorizontalTextAlignment="Start" FontAttributes="Bold" />
+                    </StackLayout>
+
+                    <StackLayout VerticalOptions="End">
+                        <Label x:Name="WebsiteHeader" Font="24" HorizontalTextAlignment="Start" FontAttributes="Bold" Text="Website:" />
+                        <Label x:Name="WebsiteLBL" Margin="20,0"  Font="20" HorizontalTextAlignment="Start" FontAttributes="Bold" />
+                    </StackLayout>
                 </StackLayout>
 
-                <StackLayout VerticalOptions="End">
-                    <Label x:Name="WebsiteHeader" Font="24" HorizontalTextAlignment="Start" FontAttributes="Bold" Text="Website:" />
-                    <Label x:Name="WebsiteLBL" Margin="20,0"  Font="20" HorizontalTextAlignment="Start" FontAttributes="Bold" />
+                <StackLayout x:Name="ContactLayout" Orientation="Horizontal" VerticalOptions="End" Padding="20, 20, 20, 20" Spacing="8">
+                    <!--Must Hardcode The Values Of Color Due To Library-->
+                    <flex:FlexButton x:Name="PhoneCallBTN" BackgroundColor="#CF1942" HeightRequest="76" WidthRequest="76" CornerRadius="38" Icon="PhoneCall.png" Clicked="Icon_Clicked" HorizontalOptions="Start" />
+                    <flex:FlexButton x:Name="WebsiteBTN" BackgroundColor="#CF1942" HeightRequest="76" WidthRequest="76" CornerRadius="38" Icon="Website.png" Clicked="Icon_Clicked" HorizontalOptions="CenterAndExpand" />
+                    <flex:FlexButton x:Name="EmailBTN" BackgroundColor="#CF1942" HeightRequest="76" WidthRequest="76" CornerRadius="38" Icon="Email.png" Clicked="Icon_Clicked" HorizontalOptions="End" />
                 </StackLayout>
             </StackLayout>
-
-            <StackLayout x:Name="ContactLayout" Orientation="Horizontal" VerticalOptions="End" Padding="20, 20, 20, 20" Spacing="8"> <!--Must Hardcode The Values Of Color Due To Library-->
-                <flex:FlexButton x:Name="PhoneCallBTN" BackgroundColor="#CF1942" HeightRequest="76" WidthRequest="76" CornerRadius="38" Icon="PhoneCall.png" Clicked="Icon_Clicked" HorizontalOptions="Start" />
-                <flex:FlexButton x:Name="WebsiteBTN" BackgroundColor="#CF1942" HeightRequest="76" WidthRequest="76" CornerRadius="38" Icon="Website.png" Clicked="Icon_Clicked" HorizontalOptions="CenterAndExpand" />
-                <flex:FlexButton x:Name="EmailBTN" BackgroundColor="#CF1942" HeightRequest="76" WidthRequest="76" CornerRadius="38" Icon="Email.png" Clicked="Icon_Clicked" HorizontalOptions="End" />
-            </StackLayout>
-        </StackLayout>
+        </ScrollView>
     </ContentPage.Content>
 </ContentPage>

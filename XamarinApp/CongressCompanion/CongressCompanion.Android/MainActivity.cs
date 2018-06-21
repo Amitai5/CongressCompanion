@@ -18,31 +18,18 @@ namespace CongressCompanion.Droid
 
             global::Xamarin.Forms.Forms.Init(this, bundle);
             LoadApplication(new App());
-            LoadData();
         }
 
-        protected override void OnDestroy()
+        protected override void OnResume()
         {
-            SaveData();
-            base.OnDestroy();
+            AppManager.Instance.LoadDataFromSave();
+            base.OnResume();
         }
 
-        // Function called from OnCreate
-        protected void LoadData()
+        protected override void OnPause()
         {
-            //Retrieve 
-            ISharedPreferences Prefs = Application.Context.GetSharedPreferences("CongressCompanion", FileCreationMode.Private);
-            AppManager.Instance.UserLocationInfo = Prefs.GetString("UserLocationInfo", null);
-        }
-
-        // Function called from OnDestroy
-        protected void SaveData()
-        {
-            //Store
-            ISharedPreferences Prefs = Application.Context.GetSharedPreferences("CongressCompanion", FileCreationMode.Private);
-            var PrefsEditor = Prefs.Edit();
-            PrefsEditor.PutString("UserLocationInfo", AppManager.Instance.UserLocationInfo);
-            PrefsEditor.Commit();
+            AppManager.Instance.SaveUserData();
+            base.OnPause();
         }
     }
 }

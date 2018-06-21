@@ -31,7 +31,7 @@ namespace CongressCompanion
             return true;
         }
 
-        private void LoadReps(RepLoadType RepType)
+        private async void LoadReps(RepLoadType RepType)
         {
             //Find Type Of Reps
             List<Representative> RepsToLoad = null;
@@ -46,6 +46,32 @@ namespace CongressCompanion
                 case RepLoadType.Federal:
                     RepsToLoad = AppManager.Instance.FederalReps;
                     break;
+            }
+
+            //Check If The Data Has Not Been Loaded
+            if(RepsToLoad == null || RepsToLoad.Count == 0)
+            {
+                //Load In Reps If Saved Location Is On
+                if (AppManager.Instance.ShouldSaveLocation &&
+                    !string.IsNullOrEmpty(AppManager.Instance.UserLocationInfo))
+                {
+                    //Load The Data With The Saved Location
+                    await AppManager.Instance.LoadRepresentatives();
+
+                    //Retry To Load Data
+                    switch (RepType)
+                    {
+                        case RepLoadType.Local:
+                            RepsToLoad = AppManager.Instance.LocalReps;
+                            break;
+                        case RepLoadType.State:
+                            RepsToLoad = AppManager.Instance.StateReps;
+                            break;
+                        case RepLoadType.Federal:
+                            RepsToLoad = AppManager.Instance.FederalReps;
+                            break;
+                    }
+                }
             }
 
             //Check If Loaded In...

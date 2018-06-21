@@ -5,14 +5,14 @@
              x:Class="CongressCompanion.SettingsPage"
              Appearing="ContentPage_Appearing">
     <ContentPage.Content>
-        <StackLayout x:Name="MainLayout" Padding="20, 20, 20, 20">
+        <StackLayout x:Name="MainLayout" Padding="20, 20, 20, 20" Spacing="35">
             <StackLayout x:Name="SaveLocationLayout" VerticalOptions="Start" Spacing="20">
                 <StackLayout x:Name="LocationSaverLayout" Orientation="Horizontal">
                     <Label x:Name="SaveLocationLBL" Font="24" HorizontalOptions="StartAndExpand" VerticalOptions="Center" FontAttributes="Bold" Text="Save Location:" />
                     <Switch x:Name="SaveLocationSwitch" HorizontalOptions="End" VerticalOptions="Center" IsToggled="True" WidthRequest="75" Toggled="SaveLocationSwitch_Toggled" />
                 </StackLayout>
 
-                <StackLayout x:Name="BoarderLayout" Orientation="Horizontal" Padding="1" Margin="5, 0" BackgroundColor="#ECAB66">
+                <StackLayout x:Name="BoarderLayout" Orientation="Horizontal" Padding="1" Margin="6, 0" BackgroundColor="#ECAB66">
                     <StackLayout x:Name="SavedLocationLayout" HorizontalOptions="FillAndExpand" Padding="5">
                         <Entry x:Name="LocationEntry" HorizontalOptions="FillAndExpand" HorizontalTextAlignment="Center" IsEnabled="False" FontSize="18" />
                         <flex:FlexButton x:Name="EditLocationBTN" HorizontalOptions="Center" HeightRequest="38" WidthRequest="75" CornerRadius="14" FontSize="16" Text="Edit" Clicked="EditLocationBTN_Clicked" />
@@ -20,6 +20,12 @@
                 </StackLayout>
             </StackLayout>
 
+            <StackLayout x:Name="ThemeLayout" VerticalOptions="StartAndExpand">
+                <Label x:Name="ThemeLBL" Font="24" HorizontalOptions="StartAndExpand" VerticalOptions="Center" FontAttributes="Bold" Text="Select Theme:" />
+                <Picker x:Name="ThemePicker" FontSize="18" SelectedIndexChanged="ThemePicker_SelectedIndexChanged" />
+            </StackLayout>
+
+            <Button x:Name="ResetDataBTN" HorizontalOptions="FillAndExpand" VerticalOptions="End" Text="Reset User Data" FontSize="14" Clicked="ResetDataBTN_Clicked" />
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

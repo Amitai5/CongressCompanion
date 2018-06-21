@@ -30,9 +30,13 @@ namespace CongressCompanion.ClassObjects
             //Set Themes
             Dictionary<string, AppTheme> Themes = new Dictionary<string, AppTheme>()
             {
-                { "USATheme", new AppTheme("#F9F3EB", "#CF1942", "#1D407C") }
+                { "Default", new AppTheme("#FDFCFB", "#E6335D", "#2B5797") },
+                { "Dark", new AppTheme("#F9F3EB", "#CF1942", "#1D407C") }
             };
             AppThemeManager.Create(Themes);
+
+            //Load User Data
+            LoadDataFromSave();
         }
         public static AppManager Instance
         {
@@ -54,6 +58,93 @@ namespace CongressCompanion.ClassObjects
         #endregion All The Singleton Stuff
 
         /// <summary>
+        /// Loads All Of The User's Prefereces From The Save.
+        /// </summary>
+        public void LoadDataFromSave()
+        {
+            //Check If Saved Before
+            if (Application.Current.Properties.ContainsKey("ShouldSaveLocation"))
+            {
+                ShouldSaveLocation = Convert.ToBoolean(Application.Current.Properties["ShouldSaveLocation"]);
+            }
+            else
+            {
+                //If Not Saved Before, Then Create It
+                Application.Current.Properties.Add("ShouldSaveLocation", ShouldSaveLocation);
+            }
+
+            //Check If Saved Before
+            if (Application.Current.Properties.ContainsKey("UserLocationInfo"))
+            {
+                //Reload The Representatives From The Saved Location
+                UserLocationInfo = (string)Application.Current.Properties["UserLocationInfo"];
+            }
+            else
+            {
+                //If Not Saved Before, Then Create It
+                Application.Current.Properties.Add("UserLocationInfo", UserLocationInfo);
+            }
+
+            //Check If Saved Before
+            if (Application.Current.Properties.ContainsKey("CurrentTheme"))
+            {
+                AppThemeManager.Instance.SelectTheme(Application.Current.Properties["CurrentTheme"].ToString());
+            }
+            else
+            {
+                //If Not Saved Before, Then Create It
+                Application.Current.Properties.Add("CurrentTheme", AppThemeManager.Instance.CurrentThemeName);
+            }
+        }
+
+        /// <summary>
+        /// Saves All Of The User's Prefereces From Storage.
+        /// </summary>
+        public async void SaveUserData()
+        {
+            //Save The Location Boolean
+            Application.Current.Properties["ShouldSaveLocation"] = ShouldSaveLocation;
+
+            //Check If Location Should Be Saved
+            if (ShouldSaveLocation)
+            {
+                Application.Current.Properties["UserLocationInfo"] = UserLocationInfo;
+            }
+            else
+            {
+                //If We Should Not Save... Clear The Data
+                Application.Current.Properties["UserLocationInfo"] = null;
+            }
+
+            //Save The Current Theme
+            Application.Current.Properties["CurrentTheme"] = AppThemeManager.Instance.CurrentThemeName;
+
+            //Sync Save It
+            await Application.Current.SavePropertiesAsync();
+        }
+
+        /// <summary>
+        /// Resets All Of The User's Current Save Data
+        /// </summary>
+        public async void ResetSaveData()
+        {
+            //Reset The Location Boolean
+            Application.Current.Properties["ShouldSaveLocation"] = true;
+            ShouldSaveLocation = true;
+
+            //Reset The Location Info
+            Application.Current.Properties["UserLocationInfo"] = null;
+            UserLocationInfo = null;
+            
+            //Reset The Current Theme
+            Application.Current.Properties["CurrentTheme"] = AppThemeManager.Instance.ThemeNames[0];
+            AppThemeManager.Instance.SelectTheme(AppThemeManager.Instance.ThemeNames[0]);
+
+            //Sync Save It
+            await Application.Current.SavePropertiesAsync();
+        }
+
+        /// <summary>
         /// Store Their Current Search Location.
         /// </summary>
         public string UserLocationInfo
@@ -69,13 +160,14 @@ namespace CongressCompanion.ClassObjects
                 LocationInfo = value;
             }
         }
+        public bool ShouldSaveLocation;
         private string LocationInfo;
 
         /// <summary>
         /// Store The Current Info Of What Location Type Is Saved.
         /// </summary>
         public bool IsZipcode = false;
-        
+
         /// <summary>
         /// The List Of Representatives For The Government Offices In The Federal Government.
         /// </summary>

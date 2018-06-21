@@ -35,6 +35,13 @@ namespace AE_Xamarin.Forms
         }
         #endregion Singleton
 
+        public string CurrentThemeName
+        {
+            get
+            {
+                return SelectedTheme;
+            }
+        }
         public AppTheme CurrentTheme
         {
             get
@@ -59,9 +66,12 @@ namespace AE_Xamarin.Forms
             //Set Theme
             SelectedTheme = ThemeName;
 
-
-            //Update Event
-            AppThemeChange.Invoke(this, new ThemeChangeArgs(ThemeName, CurrentTheme));
+            //Check If Event Exists
+            if (AppThemeChange != null)
+            {
+                //Update Event
+                AppThemeChange.Invoke(this, new ThemeChangeArgs(ThemeName, CurrentTheme));
+            }
         }
         private Dictionary<string, AppTheme> AppThemes;
 

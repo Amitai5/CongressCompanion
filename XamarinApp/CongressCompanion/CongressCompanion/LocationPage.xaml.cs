@@ -16,8 +16,9 @@ namespace CongressCompanion
         {
             InitializeComponent();
 
-            //Check If The Location Is Already Loaded In
-            if (!string.IsNullOrEmpty(AppManager.Instance.UserLocationInfo) && !FromSettings)
+            //Check If We Already Have A Saved Location
+            if (AppManager.Instance.ShouldSaveLocation && 
+                !string.IsNullOrEmpty(AppManager.Instance.UserLocationInfo) && !FromSettings)
             {
                 Navigation.PushModalAsync(new MainPage());
                 Navigation.RemovePage(this);
@@ -120,6 +121,9 @@ namespace CongressCompanion
                 IsLoadingNextPage = false;
                 return;
             }
+
+            //Save The New Data
+            AppManager.Instance.SaveUserData();
 
             if (!FromSettingsPage)
             {
