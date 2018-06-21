@@ -1,11 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="CongressCompanion.StateRepsPage">
+             x:Class="CongressCompanion.RepsListPage">
     <ContentPage.Content>
         <ScrollView x:Name="MainScroller">
             <StackLayout x:Name="MainLayout" Padding="20, 20, 20, 20" Spacing="12">
-                <Label x:Name="StateLBL" FontSize="36" Text="State Officials" HorizontalTextAlignment="Center" FontAttributes="Bold" />
+                <Label x:Name="TitleLBL" FontSize="36" Text="Officials" HorizontalTextAlignment="Center" FontAttributes="Bold" />
                 <BoxView HorizontalOptions="CenterAndExpand" HeightRequest="2" WidthRequest="350" Color="#ECAB66" />
             </StackLayout>
         </ScrollView>

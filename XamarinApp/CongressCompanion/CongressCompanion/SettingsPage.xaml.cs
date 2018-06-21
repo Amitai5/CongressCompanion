@@ -33,22 +33,11 @@ namespace CongressCompanion
             BoarderLayout.IsVisible = e.Value;
         }
 
-        private void ContentPage_Appearing(object sender, EventArgs e)
-        {
-            //Update The Text Based On Location Type
-            if (AppManager.Instance.IsZipcode)
-            {
-                LocationEntry.Text = $"Zipcode: {AppManager.Instance.UserLocationInfo}";
-            }
-            else
-            {
-                LocationEntry.Text = AppManager.Instance.UserLocationInfo;
-            }
-        }
         public void UpdateThemeColors()
         {
             LocationEntry.TextColor = AppThemeManager.Instance.CurrentTheme.TextColor;
             SaveLocationLBL.TextColor = AppThemeManager.Instance.CurrentTheme.TextColor;
+            LocationEntry.PlaceholderColor = AppThemeManager.Instance.CurrentTheme.TextColor;
             EditLocationBTN.BackgroundColor = AppThemeManager.Instance.CurrentTheme.NavBarColor;
             SavedLocationLayout.BackgroundColor = AppThemeManager.Instance.CurrentTheme.BackgroundColor;
 
@@ -62,6 +51,18 @@ namespace CongressCompanion
         {
             //Stop From Going Back To Start Page
             return true;
+        }
+        private void ContentPage_Appearing(object sender, EventArgs e)
+        {
+            //Update The Text Based On Location Type
+            if (AppManager.Instance.IsZipcode)
+            {
+                LocationEntry.Placeholder = $"Zipcode: {AppManager.Instance.UserLocationInfo}";
+            }
+            else
+            {
+                LocationEntry.Placeholder = AppManager.Instance.UserLocationInfo;
+            }
         }
     }
 }

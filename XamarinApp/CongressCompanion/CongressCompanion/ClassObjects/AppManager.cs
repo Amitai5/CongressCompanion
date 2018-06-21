@@ -200,13 +200,13 @@ namespace CongressCompanion.ClassObjects
             switch (PageName.ToLower())
             {
                 case "federal":
-                    EmbededPage = new FederalRepsPage();
+                    EmbededPage = new RepsListPage(RepLoadType.Federal);
                     break;
                 case "state":
-                    EmbededPage = new StateRepsPage();
+                    EmbededPage = new RepsListPage(RepLoadType.State);
                     break;
                 case "local":
-                    EmbededPage = new LocalRepsPage();
+                    EmbededPage = new RepsListPage(RepLoadType.Local);
                     break;
                 case "settings":
                     EmbededPage = new SettingsPage();

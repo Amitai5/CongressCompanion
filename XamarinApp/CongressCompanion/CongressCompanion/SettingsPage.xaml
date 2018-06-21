@@ -14,7 +14,7 @@
 
                 <StackLayout x:Name="BoarderLayout" Orientation="Horizontal" Padding="1" Margin="5, 0" BackgroundColor="#ECAB66">
                     <StackLayout x:Name="SavedLocationLayout" HorizontalOptions="FillAndExpand" Padding="5">
-                        <Entry x:Name="LocationEntry" HorizontalOptions="CenterAndExpand" HorizontalTextAlignment="Center" IsEnabled="False" FontSize="18" />
+                        <Entry x:Name="LocationEntry" HorizontalOptions="FillAndExpand" HorizontalTextAlignment="Center" IsEnabled="False" FontSize="18" />
                         <flex:FlexButton x:Name="EditLocationBTN" HorizontalOptions="Center" HeightRequest="38" WidthRequest="75" CornerRadius="14" FontSize="16" Text="Edit" Clicked="EditLocationBTN_Clicked" />
                     </StackLayout>
                 </StackLayout>

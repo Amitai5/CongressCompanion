@@ -11,27 +11,53 @@ using Xamarin.Forms.Xaml;
 
 namespace CongressCompanion
 {
-    [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class StateRepsPage : ContentPage
-    {
-        public StateRepsPage()
-        {
-            InitializeComponent();
+	[XamlCompilation(XamlCompilationOptions.Compile)]
+	public partial class RepsListPage : ContentPage
+	{
+		public RepsListPage (RepLoadType Type)
+		{
+			InitializeComponent ();
 
-            //Set Font Colors
-            StateLBL.TextColor = AppThemeManager.Instance.CurrentTheme.TextColor;
+            //Set Color And Text Of Title
+            TitleLBL.TextColor = AppThemeManager.Instance.CurrentTheme.TextColor;
+            TitleLBL.Text = $"{Type.ToString()} Officials";
+
+            //Load Up The Reps
+            LoadReps(Type);
+        }
+        protected override bool OnBackButtonPressed()
+        {
+            //Stop From Going Back To Start Page
+            return true;
+        }
+
+        private void LoadReps(RepLoadType RepType)
+        {
+            //Find Type Of Reps
+            List<Representative> RepsToLoad = null;
+            switch (RepType)
+            {
+                case RepLoadType.Local:
+                    RepsToLoad = AppManager.Instance.LocalReps;
+                    break;
+                case RepLoadType.State:
+                    RepsToLoad = AppManager.Instance.StateReps;
+                    break;
+                case RepLoadType.Federal:
+                    RepsToLoad = AppManager.Instance.FederalReps;
+                    break;
+            }
 
             //Check If Loaded In...
-            if (AppManager.Instance.StateReps != null && AppManager.Instance.StateReps.Count > 0)
+            if (RepsToLoad != null && RepsToLoad.Count > 0)
             {
-                for (int i = 0; i < AppManager.Instance.StateReps.Count; i++)
+                foreach (Representative CurrentRep in RepsToLoad)
                 {
-                    Representative StateRep = AppManager.Instance.StateReps[i];
                     StackLayout RepLayout = new StackLayout()
                     {
                         Padding = new Thickness(20, 20, 20, 20),
                         BackgroundColor = AppThemeManager.Instance.CurrentTheme.NavBarColor,
-                        GestureRecognizers = { new TapGestureRecognizer { Command = new Command(() => LoadProfilePage(StateRep)) } }
+                        GestureRecognizers = { new TapGestureRecognizer { Command = new Command(() => LoadProfilePage(CurrentRep)) } }
                     };
 
                     Label RepresentativeName = new Label()
@@ -39,7 +65,7 @@ namespace CongressCompanion
                         HorizontalOptions = new LayoutOptions(LayoutAlignment.Start, false),
                         TextColor = AppThemeManager.Instance.CurrentTheme.TextColor,
                         HorizontalTextAlignment = TextAlignment.Start,
-                        Text = StateRep.FullName,
+                        Text = CurrentRep.FullName,
                         FontSize = 24
                     };
 
@@ -48,7 +74,7 @@ namespace CongressCompanion
                         HorizontalOptions = new LayoutOptions(LayoutAlignment.Start, false),
                         TextColor = AppThemeManager.Instance.CurrentTheme.TextColor,
                         HorizontalTextAlignment = TextAlignment.Start,
-                        Text = StateRep.OfficeName,
+                        Text = CurrentRep.OfficeName,
                         FontSize = 18
                     };
 
@@ -65,19 +91,28 @@ namespace CongressCompanion
                     HorizontalOptions = new LayoutOptions(LayoutAlignment.Center, false),
                     VerticalOptions = new LayoutOptions(LayoutAlignment.Center, false),
                     TextColor = AppThemeManager.Instance.CurrentTheme.TextColor,
-                    HorizontalTextAlignment = TextAlignment.Start,
-                    Text = "No State Officals Were Found...",
+                    HorizontalTextAlignment = TextAlignment.Center,
+                    Text = $"Could Not Find {RepType.ToString()} Officals...",
                     FontSize = 18
                 };
                 MainLayout.Children.Add(NoRepsFound);
+
+                //Check If They Are Not Using Full Address
+                if (AppManager.Instance.IsZipcode)
+                {
+                    Label UseZipcodeLBL = new Label()
+                    {
+                        HorizontalOptions = new LayoutOptions(LayoutAlignment.Center, false),
+                        VerticalOptions = new LayoutOptions(LayoutAlignment.Center, false),
+                        TextColor = AppThemeManager.Instance.CurrentTheme.TextColor,
+                        HorizontalTextAlignment = TextAlignment.Center,
+                        Text = "For More Accurate Results, Use The Full Address Instead Of Just A Zipcode.",
+                        FontSize = 14
+                    };
+                    MainLayout.Children.Add(UseZipcodeLBL);
+                }
             }
         }
-        protected override bool OnBackButtonPressed()
-        {
-            //Stop From Going Back To Start Page
-            return true;
-        }
-
         private void LoadProfilePage(Representative CurrentRep)
         {
             if (CurrentRep.FullName.ToLower() != "vacant")
