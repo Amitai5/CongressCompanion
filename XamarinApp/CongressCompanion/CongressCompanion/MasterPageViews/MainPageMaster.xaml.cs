@@ -1,5 +1,5 @@
-﻿using AE_Xamarin.Forms;
-using CongressCompanion.ClassObjects;
+﻿using AE_Xamarin.Managers;
+using CongressCompanion.MasterPageViews;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;

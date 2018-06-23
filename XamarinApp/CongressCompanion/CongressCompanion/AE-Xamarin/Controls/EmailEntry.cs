@@ -1,23 +1,22 @@
-﻿using AE_Xamarin.Misc;
-using Xamarin.Forms;
+﻿using Xamarin.Forms;
 
-namespace AE_Xamarin.Forms.Controls
+namespace AE_Xamarin.Controls
 {
-    public class ZipcodeEntry : ValidationEntry
+    public class EmailEntry : ValidationEntry
     {
         //Store Origional Color
         private Color? TextBaseColor = null;
 
-        public ZipcodeEntry() : base(BasicRegex.RegexPatters.ZipcodeValidation)
+        public EmailEntry() : base(BasicRegex.RegexPatters.EmailValidation)
         {
             //Set Default Info
-            Keyboard = Keyboard.Telephone;
-            Placeholder = "91302";
+            Keyboard = Keyboard.Email;
+            Placeholder = "example@mail.com";
 
             //Add Event To Validate The Number
-            Unfocused += ZipcodeEntry_Unfocused;
+            Unfocused += EmailEntry_Unfocused;
         }
-        private void ZipcodeEntry_Unfocused(object sender, FocusEventArgs e)
+        private void EmailEntry_Unfocused(object sender, FocusEventArgs e)
         {
             //Check Validity
             if (!IsValid)

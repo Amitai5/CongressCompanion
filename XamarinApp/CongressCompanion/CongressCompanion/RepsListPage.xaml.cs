@@ -1,17 +1,12 @@
-﻿using AE_Xamarin.Forms;
+﻿using AE_Xamarin.Managers;
 using CongressCompanion.ClassObjects;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 namespace CongressCompanion
 {
-	[XamlCompilation(XamlCompilationOptions.Compile)]
+    [XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class RepsListPage : ContentPage
 	{
 		public RepsListPage (RepLoadType Type)

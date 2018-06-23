@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace CongressCompanion.ClassObjects
+namespace CongressCompanion.MasterPageViews
 {
 
     public class MainPageMenuItem

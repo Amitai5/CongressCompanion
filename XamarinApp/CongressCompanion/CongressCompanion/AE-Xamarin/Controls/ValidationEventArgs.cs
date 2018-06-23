@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace AE_Xamarin.Forms.Controls
+﻿namespace AE_Xamarin.Controls
 {
     public class ValidationEventArgs
     {

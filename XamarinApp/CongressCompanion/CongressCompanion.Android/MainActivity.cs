@@ -1,8 +1,6 @@
 ﻿using Android.App;
-using Android.Content;
 using Android.Content.PM;
 using Android.OS;
-using CongressCompanion.ClassObjects;
 
 namespace CongressCompanion.Droid
 {
@@ -22,13 +20,11 @@ namespace CongressCompanion.Droid
 
         protected override void OnResume()
         {
-            AppManager.Instance.LoadDataFromSave();
             base.OnResume();
         }
 
         protected override void OnPause()
         {
-            AppManager.Instance.SaveUserData();
             base.OnPause();
         }
     }

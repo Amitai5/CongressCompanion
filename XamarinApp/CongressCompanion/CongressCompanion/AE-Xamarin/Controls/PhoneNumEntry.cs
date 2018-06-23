@@ -1,7 +1,6 @@
-﻿using AE_Xamarin.Misc;
-using Xamarin.Forms;
+﻿using Xamarin.Forms;
 
-namespace AE_Xamarin.Forms.Controls
+namespace AE_Xamarin.Controls
 {
     public class PhoneNumEntry : ValidationEntry
     {
