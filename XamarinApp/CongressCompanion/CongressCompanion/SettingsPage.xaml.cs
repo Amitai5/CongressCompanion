@@ -1,11 +1,5 @@
-﻿using AE_Xamarin.Forms;
-using CongressCompanion.ClassObjects;
+﻿using AE_Xamarin.Managers;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -49,7 +43,7 @@ namespace CongressCompanion
             AppManager.Instance.ShouldSaveLocation = e.Value;
 
             //Save The New Data
-            AppManager.Instance.SaveUserData();
+            AppManager.Instance.SaveData();
         }
         private void ThemePicker_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -57,7 +51,7 @@ namespace CongressCompanion
             AppThemeManager.Instance.SelectTheme(ThemePicker.SelectedItem.ToString());
 
             //Save The Data
-            AppManager.Instance.SaveUserData();
+            AppManager.Instance.SaveData();
         }
 
         public void UpdateThemeColors()
@@ -109,18 +103,14 @@ namespace CongressCompanion
                 //Reset Data
                 AppManager.Instance.ResetSaveData();
 
+                //Update The Text
+                LocationLBL.Text = "";
+
+                //Update Is Zipcode
+                AppManager.Instance.IsZipcode = false;
+
                 //Set The Save Location Switch
                 SaveLocationSwitch.IsToggled = AppManager.Instance.ShouldSaveLocation;
-
-                //Update The Text Based On Location Type
-                if (AppManager.Instance.IsZipcode)
-                {
-                    LocationLBL.Text = $"Zipcode: {AppManager.Instance.UserLocationInfo}";
-                }
-                else
-                {
-                    LocationLBL.Text = AppManager.Instance.UserLocationInfo;
-                }
 
                 //Select The Current Theme
                 ThemePicker.SelectedIndex = ThemePicker.Items.IndexOf(AppThemeManager.Instance.CurrentThemeName);

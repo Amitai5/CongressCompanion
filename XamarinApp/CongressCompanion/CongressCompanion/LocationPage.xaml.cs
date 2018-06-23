@@ -1,5 +1,4 @@
-﻿using AE_Xamarin.Forms;
-using CongressCompanion.ClassObjects;
+﻿using AE_Xamarin.Managers;
 using System;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -123,7 +122,7 @@ namespace CongressCompanion
             }
 
             //Save The New Data
-            AppManager.Instance.SaveUserData();
+            AppManager.Instance.SaveData();
 
             if (!FromSettingsPage)
             {
@@ -151,6 +150,8 @@ namespace CongressCompanion
             ConfirmBTN.TextColor = AppThemeManager.Instance.CurrentTheme.TextColor;
             StatePicker.TextColor = AppThemeManager.Instance.CurrentTheme.TextColor;
             AddressTxtBox.TextColor = AppThemeManager.Instance.CurrentTheme.TextColor;
+            ZipcodeTxtBox.TextColor = AppThemeManager.Instance.CurrentTheme.TextColor;
+            ZipcodeTxtBox.PlaceholderColor = AppThemeManager.Instance.CurrentTheme.TextColor;
             AddressTxtBox.PlaceholderColor = AppThemeManager.Instance.CurrentTheme.TextColor;
         }
         private void Instance_AppThemeChange(object sender, ThemeChangeArgs e)

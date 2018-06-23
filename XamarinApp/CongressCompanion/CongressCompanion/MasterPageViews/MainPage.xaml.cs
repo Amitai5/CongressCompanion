@@ -1,4 +1,5 @@
-﻿using CongressCompanion.ClassObjects;
+﻿using AE_Xamarin.Managers;
+using CongressCompanion.MasterPageViews;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 

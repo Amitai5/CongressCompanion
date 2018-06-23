@@ -1,13 +1,9 @@
-﻿using AE_Xamarin.Misc;
+﻿using AE_Xamarin.Managers;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using Xamarin.Forms;
 
-namespace AE_Xamarin.Forms.Controls
+namespace AE_Xamarin.Controls
 {
     public class ValidationEntry : Entry
     {
@@ -46,8 +42,6 @@ namespace AE_Xamarin.Forms.Controls
 
             //Set Text Color
             BackgroundColor = Color.Transparent;
-            TextColor = AppThemeManager.Instance.CurrentTheme.TextColor;
-            PlaceholderColor = AppThemeManager.Instance.CurrentTheme.TextColor;
         }
         private void ValidationEntry_Unfocused(object sender, FocusEventArgs e)
         {

@@ -1,11 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Xamarin.Forms;
 
-namespace AE_Xamarin.Forms
+namespace AE_Xamarin.Managers
 {
     public class AppThemeManager
     {
@@ -18,7 +15,7 @@ namespace AE_Xamarin.Forms
                 {
                     if (ClassInstance == null)
                     {
-                        throw new Exception("AppManager Has Not Yet Been Created!");
+                        throw new Exception("AppThemeManager Has Not Yet Been Created!");
                     }
                     return ClassInstance;
                 }
@@ -31,25 +28,35 @@ namespace AE_Xamarin.Forms
         {
             //Set Themes
             AppThemes = Themes;
-            SelectedTheme = ThemeNames[0];
+            CurrentThemeName = ThemeNames[0];
+        }
+        public static void Create(Dictionary<string, AppTheme> Themes)
+        {
+            //Make Sure It Has Not Yet Been Created
+            if (ClassInstance != null)
+            {
+                throw new Exception("The AppThemeManager Has Already Been Created!");
+            }
+
+            //Make Sure There Are Themes
+            if (Themes == null || Themes.Count == 0)
+            {
+                throw new Exception("The Themes Cannot Be Null And Must Have At Least One Value!");
+            }
+
+            //Create The Instance
+            ClassInstance = new AppThemeManager(Themes);
         }
         #endregion Singleton
 
-        public string CurrentThemeName
-        {
-            get
-            {
-                return SelectedTheme;
-            }
-        }
+        public string CurrentThemeName { get; private set; }
         public AppTheme CurrentTheme
         {
             get
             {
-                return AppThemes[SelectedTheme];
+                return AppThemes[CurrentThemeName];
             }
         }
-        private string SelectedTheme;
 
         /// <summary>
         /// Selects The Theme To Display.
@@ -64,7 +71,7 @@ namespace AE_Xamarin.Forms
             }
 
             //Set Theme
-            SelectedTheme = ThemeName;
+            CurrentThemeName = ThemeName;
 
             //Check If Event Exists
             if (AppThemeChange != null)
@@ -90,23 +97,5 @@ namespace AE_Xamarin.Forms
         /// Fired Every Time The Theme Changes.
         /// </summary>
         public event EventHandler<ThemeChangeArgs> AppThemeChange;
-
-        public static void Create(Dictionary<string, AppTheme> Themes)
-        {
-            //Make Sure It Has Not Yet Been Created
-            if (ClassInstance != null)
-            {
-                throw new Exception("The AppManager Has Already Been Created!");
-            }
-
-            //Make Sure There Are Themes
-            if(Themes == null || Themes.Count == 0)
-            {
-                throw new Exception("The Themes Cannot Be Null And Must Have At Least One Value!");
-            }
-            
-            //Create The Instance
-            ClassInstance = new AppThemeManager(Themes);
-        }
     }
 }

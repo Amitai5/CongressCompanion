@@ -1,21 +1,174 @@
-﻿using AE_Xamarin.Forms;
-using AE_Xamarin.Misc;
+﻿using CongressCompanion;
+using CongressCompanion.ClassObjects;
+using CongressCompanion.MasterPageViews;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.IO;
+using System.Linq;
 using System.Net.Http;
-using System.Text.RegularExpressions;
+using System.Reflection;
 using System.Threading.Tasks;
-using System.Xml;
 using Xamarin.Forms;
 
-namespace CongressCompanion.ClassObjects
+namespace AE_Xamarin.Managers
 {
     public class AppManager
     {
-        #region All The Singleton Stuff
+        #region Singleton Code
+        public static AppManager Instance
+        {
+            get
+            {
+                lock (ManagerLock)
+                {
+                    if (ClassInstance == null)
+                    {
+                        ClassInstance = new AppManager();
+                    }
+                    return ClassInstance;
+                }
+            }
+        }
+
+        private static AppManager ClassInstance = null;
+        private static readonly object ManagerLock = new object();
+        #endregion Singleton Code
+
+        #region Save Data Reflection Code
+
+        /// <summary>
+        /// Gets The List Of Objects That Contains The Save Atribute.
+        /// </summary>
+        /// <param name="atype">The Main Class To Save Items From.</param>
+        /// <returns>The List Of Objects To Be Saved.</returns>
+        private static Dictionary<string, object> GetSaveItems(object atype)
+        {
+            //Check That They Pass In An Object
+            if (atype == null)
+            {
+                return new Dictionary<string, object>();
+            }
+
+            //Get The Main Class Type
+            Type ClassType = atype.GetType();
+
+            //Get All The Fields Of The Class With The Save Attribute
+            Dictionary<string, object> TempDictionary = new Dictionary<string, object>();
+            FieldInfo[] Members = ClassType.GetFields().Where(prop => Attribute.IsDefined(prop, typeof(SaveItemAttribute))).ToArray();
+
+            //Go Through Them All And Add Them To The Return List
+            foreach (MemberInfo Member in Members)
+            {
+                TempDictionary.Add(((FieldInfo)Member).Name, ((FieldInfo)Member).GetValue(Instance));
+            }
+            return TempDictionary;
+        }
+        private Dictionary<string, object> SaveItems;
+
+        /// <summary>
+        /// Resets The Values Of Items That Are Tagged With The "SaveItem Attribute" To Their Defaults.
+        /// THIS CANNOT BE REVERSED!!
+        /// </summary>
+        public void ResetSaveData()
+        {
+            //Try To Get Save Items
+            SaveItems = GetSaveItems(this);
+
+            //Check For Any Save Items
+            if (SaveItems == null)
+            {
+                return;
+            }
+
+            //Load Variable Values To Their Stored Defaults
+            FieldInfo[] Members = typeof(AppManager).GetFields().Where(prop => Attribute.IsDefined(prop, typeof(SaveItemAttribute))).ToArray();
+            foreach (FieldInfo Member in Members)
+            {
+                //Get Default Value As Object
+                object DefaultValue = Member.GetCustomAttribute<SaveItemAttribute>().DefaultValue;
+
+                //Set Variable To Default Values
+                Member.SetValue(Instance, DefaultValue);
+            }
+
+            //Reset The Saved Theme To Default
+            AppThemeManager.Instance.SelectTheme(AppThemeManager.Instance.ThemeNames[0]);
+
+            //Save The Default Version
+            SaveData();
+        }
+
+        /// <summary>
+        /// Loads Data That Is Tagged With The "SaveItem Attribute".
+        /// </summary>
+        public void LoadSavedData()
+        {
+            //Try To Get Save Items
+            SaveItems = GetSaveItems(this);
+
+            //Check For Any Save Items
+            if (SaveItems == null)
+            {
+                return;
+            }
+
+            //Load Up The Saved Values
+            string[] ItemNames = SaveItems.Keys.ToArray();
+            for (int i = 0; i < ItemNames.Length; i++)
+            {
+                if (Application.Current.Properties.ContainsKey(ItemNames[i]))
+                {
+                    SaveItems[ItemNames[i]] = Application.Current.Properties[ItemNames[i]];
+                }
+            }
+
+            //Load Variable Values
+            FieldInfo[] Members = typeof(AppManager).GetFields().Where(prop => Attribute.IsDefined(prop, typeof(SaveItemAttribute))).ToArray();
+            foreach (FieldInfo Member in Members)
+            {
+                //Set Variable Values
+                Member.SetValue(Instance, SaveItems[Member.Name]);
+            }
+
+            //Check If The Theme Has Been Saved Before
+            if (Application.Current.Properties.ContainsKey("SavedThemeName"))
+            {
+                //Set The CurrentTheme
+                string ThemeName = Application.Current.Properties["SavedThemeName"].ToString();
+                AppThemeManager.Instance.SelectTheme(ThemeName);
+            }
+            else
+            {
+                //Set The Theme To Default
+                Application.Current.Properties.Add("SavedThemeName", null);
+            }
+        }
+
+        /// <summary>
+        /// Saves The Data That Is Tagged With The "SaveItem Attribute".
+        /// </summary>
+        public void SaveData()
+        {
+            //Reload Objects With Their New Values
+            SaveItems = GetSaveItems(this);
+
+            //Save The Objects
+            string[] ItemNames = SaveItems.Keys.ToArray();
+            for (int i = 0; i < ItemNames.Length; i++)
+            {
+                Application.Current.Properties[ItemNames[i]] = SaveItems[ItemNames[i]];
+            }
+
+            //Save The CurrentTheme
+            Application.Current.Properties["SavedThemeName"] = AppThemeManager.Instance.CurrentThemeName;
+
+            //Save The Application Properties
+            Application.Current.SavePropertiesAsync();
+        }
+
+        #endregion Save Data Reflection Code
+
         private AppManager()
         {
             //Set All Tab Pages
@@ -34,114 +187,6 @@ namespace CongressCompanion.ClassObjects
                 { "Dark", new AppTheme("#F9F3EB", "#CF1942", "#1D407C") }
             };
             AppThemeManager.Create(Themes);
-
-            //Load User Data
-            LoadDataFromSave();
-        }
-        public static AppManager Instance
-        {
-            get
-            {
-                lock (ManagerLock)
-                {
-                    if (ClassInstance == null)
-                    {
-                        ClassInstance = new AppManager();
-                    }
-                    return ClassInstance;
-                }
-            }
-        }
-
-        private static AppManager ClassInstance = null;
-        private static readonly object ManagerLock = new object();
-        #endregion All The Singleton Stuff
-
-        /// <summary>
-        /// Loads All Of The User's Prefereces From The Save.
-        /// </summary>
-        public void LoadDataFromSave()
-        {
-            //Check If Saved Before
-            if (Application.Current.Properties.ContainsKey("ShouldSaveLocation"))
-            {
-                ShouldSaveLocation = Convert.ToBoolean(Application.Current.Properties["ShouldSaveLocation"]);
-            }
-            else
-            {
-                //If Not Saved Before, Then Create It
-                Application.Current.Properties.Add("ShouldSaveLocation", ShouldSaveLocation);
-            }
-
-            //Check If Saved Before
-            if (Application.Current.Properties.ContainsKey("UserLocationInfo"))
-            {
-                //Reload The Representatives From The Saved Location
-                UserLocationInfo = (string)Application.Current.Properties["UserLocationInfo"];
-            }
-            else
-            {
-                //If Not Saved Before, Then Create It
-                Application.Current.Properties.Add("UserLocationInfo", UserLocationInfo);
-            }
-
-            //Check If Saved Before
-            if (Application.Current.Properties.ContainsKey("CurrentTheme"))
-            {
-                AppThemeManager.Instance.SelectTheme(Application.Current.Properties["CurrentTheme"].ToString());
-            }
-            else
-            {
-                //If Not Saved Before, Then Create It
-                Application.Current.Properties.Add("CurrentTheme", AppThemeManager.Instance.CurrentThemeName);
-            }
-        }
-
-        /// <summary>
-        /// Saves All Of The User's Prefereces From Storage.
-        /// </summary>
-        public async void SaveUserData()
-        {
-            //Save The Location Boolean
-            Application.Current.Properties["ShouldSaveLocation"] = ShouldSaveLocation;
-
-            //Check If Location Should Be Saved
-            if (ShouldSaveLocation)
-            {
-                Application.Current.Properties["UserLocationInfo"] = UserLocationInfo;
-            }
-            else
-            {
-                //If We Should Not Save... Clear The Data
-                Application.Current.Properties["UserLocationInfo"] = null;
-            }
-
-            //Save The Current Theme
-            Application.Current.Properties["CurrentTheme"] = AppThemeManager.Instance.CurrentThemeName;
-
-            //Sync Save It
-            await Application.Current.SavePropertiesAsync();
-        }
-
-        /// <summary>
-        /// Resets All Of The User's Current Save Data
-        /// </summary>
-        public async void ResetSaveData()
-        {
-            //Reset The Location Boolean
-            Application.Current.Properties["ShouldSaveLocation"] = true;
-            ShouldSaveLocation = true;
-
-            //Reset The Location Info
-            Application.Current.Properties["UserLocationInfo"] = null;
-            UserLocationInfo = null;
-            
-            //Reset The Current Theme
-            Application.Current.Properties["CurrentTheme"] = AppThemeManager.Instance.ThemeNames[0];
-            AppThemeManager.Instance.SelectTheme(AppThemeManager.Instance.ThemeNames[0]);
-
-            //Sync Save It
-            await Application.Current.SavePropertiesAsync();
         }
 
         /// <summary>
@@ -160,8 +205,12 @@ namespace CongressCompanion.ClassObjects
                 LocationInfo = value;
             }
         }
+
+        [SaveItem(true)] //Save Location
         public bool ShouldSaveLocation;
-        private string LocationInfo;
+
+        [SaveItem(null)] //Save Location Info
+        public string LocationInfo;
 
         /// <summary>
         /// Store The Current Info Of What Location Type Is Saved.
