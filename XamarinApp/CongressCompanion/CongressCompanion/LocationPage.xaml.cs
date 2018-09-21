@@ -147,10 +147,12 @@ namespace CongressCompanion
             ConfirmBTN.BackgroundColor = AppThemeManager.Instance.CurrentTheme.NavBarColor;
 
             //Set Text-Colors
+            CityTxtBox.TextColor = AppThemeManager.Instance.CurrentTheme.TextColor;
             ConfirmBTN.TextColor = AppThemeManager.Instance.CurrentTheme.TextColor;
             StatePicker.TextColor = AppThemeManager.Instance.CurrentTheme.TextColor;
             AddressTxtBox.TextColor = AppThemeManager.Instance.CurrentTheme.TextColor;
             ZipcodeTxtBox.TextColor = AppThemeManager.Instance.CurrentTheme.TextColor;
+            CityTxtBox.PlaceholderColor = AppThemeManager.Instance.CurrentTheme.TextColor;
             ZipcodeTxtBox.PlaceholderColor = AppThemeManager.Instance.CurrentTheme.TextColor;
             AddressTxtBox.PlaceholderColor = AppThemeManager.Instance.CurrentTheme.TextColor;
         }
