@@ -134,9 +134,12 @@ namespace AE_Xamarin.Managers
             //Check If The Theme Has Been Saved Before
             if (Application.Current.Properties.ContainsKey("SavedThemeName"))
             {
-                //Set The CurrentTheme
-                string ThemeName = Application.Current.Properties["SavedThemeName"].ToString();
-                AppThemeManager.Instance.SelectTheme(ThemeName);
+                if (Application.Current.Properties["SavedThemeName"] != null)
+                {
+                    //Set The CurrentTheme
+                    string ThemeName = Application.Current.Properties["SavedThemeName"].ToString();
+                    AppThemeManager.Instance.SelectTheme(ThemeName);
+                }
             }
             else
             {
