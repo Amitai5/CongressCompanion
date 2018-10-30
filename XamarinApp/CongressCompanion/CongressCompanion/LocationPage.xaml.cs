@@ -16,7 +16,7 @@ namespace CongressCompanion
             InitializeComponent();
 
             //Check If We Already Have A Saved Location
-            if (AppManager.Instance.ShouldSaveLocation && 
+            if (AppManager.Instance.ShouldSaveLocation &&
                 !string.IsNullOrEmpty(AppManager.Instance.UserLocationInfo) && !FromSettings)
             {
                 Navigation.PushModalAsync(new MainPage());
@@ -41,7 +41,7 @@ namespace CongressCompanion
             StatePicker.SelectedIndex = 0;
 
             //Check Where We Came From
-            if(FromSettings)
+            if (FromSettings)
             {
                 FromSettingsPage = true;
                 Title = "Update Location";

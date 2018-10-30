@@ -7,11 +7,11 @@ namespace CongressCompanion.ClassObjects
         public Uri Website { get; private set; }
         public Uri ImageUrl { get; private set; }
         public string FullName { get; private set; }
-        public string GovLevel { get; private set; }
         public string OfficeName { get; private set; }
-        public string PhoneNumber { get; private set; }
         public string DivisionID { get; private set; }
+        public string PhoneNumber { get; private set; }
         public string PrimaryEmail { get; private set; }
+        public RepGovLevel GovLevel { get; private set; }
         public PoliticalParty Party { get; private set; }
 
         //Store Their Rank
@@ -69,9 +69,60 @@ namespace CongressCompanion.ClassObjects
             if (string.IsNullOrEmpty(OfficeName))
             {
                 //Set Variables
-                OfficeName = officeName;
                 DivisionID = divisionID;
-                GovLevel = levelName;
+                GovLevel = RepGovLevel.Unknown;
+
+                //First Sort Out Levels
+                if (levelName.ToLower().Trim() == "country")
+                {
+                    GovLevel = RepGovLevel.Country;
+                }
+
+                //Check The Division After The Level
+                if (GovLevel == RepGovLevel.Unknown)
+                {
+                    if (divisionID.Contains("county"))
+                    {
+                        GovLevel = RepGovLevel.County;
+                    }
+                    else if (divisionID.Contains("place"))
+                    {
+                        GovLevel = RepGovLevel.Place;
+                    }
+                    else if (divisionID.Contains("state"))
+                    {
+                        GovLevel = RepGovLevel.State;
+                    }
+                    else
+                    {
+                        GovLevel = RepGovLevel.Country;
+                    }
+                }
+
+                //Adjust Names
+                string officeNameLowered = officeName.ToLower();
+                OfficeName = officeName;
+                switch (GovLevel)
+                {
+                    case RepGovLevel.State:
+                        if (!officeNameLowered.Contains("state"))
+                        {
+                            OfficeName = $"State {officeName}";
+                        }
+                        break;
+                    case RepGovLevel.County:
+                        if (!officeNameLowered.Contains("district") && !officeNameLowered.Contains("county"))
+                        {
+                            OfficeName = $"County {officeName}";
+                        }
+                        break;
+                    case RepGovLevel.Place:
+                        if (!officeNameLowered.Contains("city"))
+                        {
+                            OfficeName = $"City {officeName}";
+                        }
+                        break;
+                }
             }
         }
 

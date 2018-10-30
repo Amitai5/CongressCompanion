@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace AE_Xamarin
 {
@@ -22,7 +18,7 @@ namespace AE_Xamarin
             /// <summary>
             /// The Validation REGEX String For Cities.
             /// </summary>
-            public const string CityNameValidation = @"(?=\w{8,})(^([A-Z|[a-z]|\d)*(?=[A-Z]+)([A-Z|[a-z]|\d)*$)";
+            public const string CityNameValidation = @"^(([A-z|']+)( )?)+$";
 
             /// <summary>
             /// The Validation REGEX String For Emails.

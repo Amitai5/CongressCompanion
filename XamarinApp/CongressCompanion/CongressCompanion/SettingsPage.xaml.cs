@@ -20,7 +20,7 @@ namespace CongressCompanion
             SaveLocationSwitch.IsToggled = AppManager.Instance.ShouldSaveLocation;
 
             //Load Theme Names
-            foreach(string ThemeName in AppThemeManager.Instance.ThemeNames)
+            foreach (string ThemeName in AppThemeManager.Instance.ThemeNames)
             {
                 ThemePicker.Items.Add(ThemeName);
             }
@@ -98,7 +98,7 @@ namespace CongressCompanion
         private async void ResetDataBTN_Clicked(object sender, EventArgs e)
         {
             //Ask The User If They Are Sure
-            if(await DisplayAlert("Erase User Data?", "Are You Sure You Want To Erase All User Saved Data?", "Yes", "No"))
+            if (await DisplayAlert("Erase User Data?", "Are You Sure You Want To Erase All User Saved Data?", "Yes", "No"))
             {
                 //Reset Data
                 AppManager.Instance.ResetSaveData();

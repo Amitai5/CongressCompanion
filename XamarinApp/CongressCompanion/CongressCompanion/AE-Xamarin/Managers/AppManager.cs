@@ -186,8 +186,11 @@ namespace AE_Xamarin.Managers
             //Set Themes
             Dictionary<string, AppTheme> Themes = new Dictionary<string, AppTheme>()
             {
-                { "Default", new AppTheme("#FDFCFB", "#E6335D", "#2B5797") },
-                { "Dark", new AppTheme("#F9F3EB", "#CF1942", "#1D407C") }
+                //Standard Themes
+                { "Default", new AppTheme("#F9F3EB", "#CF1942", "#1D407C") },
+                { "Dark", new AppTheme("#284472", "#3A3337", "#1A1A1A" ) },
+
+                { "Halloween", new AppTheme("#F26430", "#3A3337", "#1A1A1A" ) }
             };
             AppThemeManager.Create(Themes);
         }
@@ -296,21 +299,18 @@ namespace AE_Xamarin.Managers
             foreach (Representative CurrentRep in TempRepList)
             {
                 //Check For Federal Rep
-                if (CurrentRep.GovLevel.ToLower().Trim() == "country")
+                switch (CurrentRep.GovLevel)
                 {
-                    FederalReps.Add(CurrentRep);
-                }
-
-                //Check For State Rep
-                else if (!CurrentRep.DivisionID.Contains("county"))
-                {
-                    StateReps.Add(CurrentRep);
-                }
-
-                //Add The Local Reps Up
-                else
-                {
-                    LocalReps.Add(CurrentRep);
+                    case RepGovLevel.Country:
+                        FederalReps.Add(CurrentRep);
+                        break;
+                    case RepGovLevel.State:
+                        StateReps.Add(CurrentRep);
+                        break;
+                    case RepGovLevel.Place:
+                    case RepGovLevel.County:
+                        LocalReps.Add(CurrentRep);
+                        break;
                 }
             }
 

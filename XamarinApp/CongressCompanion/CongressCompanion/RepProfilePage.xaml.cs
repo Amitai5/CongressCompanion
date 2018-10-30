@@ -82,6 +82,10 @@ namespace CongressCompanion
             PartyHeader.TextColor = AppThemeManager.Instance.CurrentTheme.TextColor;
             PhoneHeader.TextColor = AppThemeManager.Instance.CurrentTheme.TextColor;
             WebsiteHeader.TextColor = AppThemeManager.Instance.CurrentTheme.TextColor;
+
+            EmailBTN.BackgroundColor = AppThemeManager.Instance.CurrentTheme.NavBarColor;
+            WebsiteBTN.BackgroundColor = AppThemeManager.Instance.CurrentTheme.NavBarColor;
+            PhoneCallBTN.BackgroundColor = AppThemeManager.Instance.CurrentTheme.NavBarColor;
             CenterLayout.BackgroundColor = AppThemeManager.Instance.CurrentTheme.BackgroundColor;
         }
 
