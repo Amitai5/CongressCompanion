@@ -13,7 +13,7 @@ using Xamarin.Forms;
 
 namespace AE_Xamarin.Managers
 {
-    public class AppManager
+    public sealed class AppManager
     {
         #region Singleton Code
         public static AppManager Instance
@@ -38,7 +38,7 @@ namespace AE_Xamarin.Managers
         #region Save Data Reflection Code
 
         /// <summary>
-        /// Gets The List Of Objects That Contains The Save Atribute.
+        /// Gets The List Of Objects That Contains The Save Attribute.
         /// </summary>
         /// <param name="atype">The Main Class To Save Items From.</param>
         /// <returns>The List Of Objects To Be Saved.</returns>
@@ -58,9 +58,9 @@ namespace AE_Xamarin.Managers
             FieldInfo[] Members = ClassType.GetFields().Where(prop => Attribute.IsDefined(prop, typeof(SaveItemAttribute))).ToArray();
 
             //Go Through Them All And Add Them To The Return List
-            foreach (MemberInfo Member in Members)
+            for (int i = 0; i < Members.Length; i++)
             {
-                TempDictionary.Add(((FieldInfo)Member).Name, ((FieldInfo)Member).GetValue(Instance));
+                TempDictionary.Add(Members[i].Name, Members[i].GetValue(Instance));
             }
             return TempDictionary;
         }
@@ -83,13 +83,13 @@ namespace AE_Xamarin.Managers
 
             //Load Variable Values To Their Stored Defaults
             FieldInfo[] Members = typeof(AppManager).GetFields().Where(prop => Attribute.IsDefined(prop, typeof(SaveItemAttribute))).ToArray();
-            foreach (FieldInfo Member in Members)
+            for (int i = 0; i < Members.Length; i++)
             {
                 //Get Default Value As Object
-                object DefaultValue = Member.GetCustomAttribute<SaveItemAttribute>().DefaultValue;
+                object DefaultValue = Members[i].GetCustomAttribute<SaveItemAttribute>().DefaultValue;
 
                 //Set Variable To Default Values
-                Member.SetValue(Instance, DefaultValue);
+                Members[i].SetValue(Instance, DefaultValue);
             }
 
             //Reset The Saved Theme To Default
@@ -125,10 +125,10 @@ namespace AE_Xamarin.Managers
 
             //Load Variable Values
             FieldInfo[] Members = typeof(AppManager).GetFields().Where(prop => Attribute.IsDefined(prop, typeof(SaveItemAttribute))).ToArray();
-            foreach (FieldInfo Member in Members)
+            for (int j = 0; j < Members.Length; j++)
             {
                 //Set Variable Values
-                Member.SetValue(Instance, SaveItems[Member.Name]);
+                Members[j].SetValue(Instance, SaveItems[Members[j].Name]);
             }
 
             //Check If The Theme Has Been Saved Before
@@ -186,11 +186,13 @@ namespace AE_Xamarin.Managers
             //Set Themes
             Dictionary<string, AppTheme> Themes = new Dictionary<string, AppTheme>()
             {
+                //Seasonal Themes
+                //{ "Halloween", new AppTheme("#F26430", "#3A3337", "#1A1A1A" ) },
+
                 //Standard Themes
                 { "Default", new AppTheme("#F9F3EB", "#CF1942", "#1D407C") },
-                { "Dark", new AppTheme("#284472", "#3A3337", "#1A1A1A" ) },
-
-                { "Halloween", new AppTheme("#F26430", "#3A3337", "#1A1A1A" ) }
+                { "Light", new AppTheme("#FFFFFF", "#2081CC", "#596977" ) },
+                { "Dark", new AppTheme("#FFFFFF", "#3A3337", "#1A1A1A" ) },
             };
             AppThemeManager.Create(Themes);
         }
@@ -249,7 +251,7 @@ namespace AE_Xamarin.Managers
             FederalReps.Clear();
 
             //Get Json Data
-            string RepDataJson = await GetRepData();
+            string RepDataJson = await GetRepData().ConfigureAwait(false);
 
             //Check If It Failed
             if (RepDataJson == null)
@@ -273,7 +275,7 @@ namespace AE_Xamarin.Managers
                 {
                     int OfficialIndex = JsonData.offices[officeIndex].officialIndices[i];
                     string[] OfficeLevels = JsonData.offices[officeIndex].levels;
-                    if (OfficeLevels != null && OfficeLevels.Length > 0)
+                    if (OfficeLevels?.Length > 0)
                     {
                         TempRepList[OfficialIndex].SetOfficeData(officeIndex, JsonData.offices[officeIndex].name, JsonData.offices[officeIndex].divisionId, OfficeLevels[0]);
                     }
@@ -318,12 +320,13 @@ namespace AE_Xamarin.Managers
             StateReps.Sort();
             LocalReps.Sort();
         }
+
         private async Task<string> GetRepData()
         {
             //Get Info
             HttpClient Client = new HttpClient();
             string CallPath = string.Format(APICallFormat, UserLocationInfo, "AIzaSyDi4NE7X-itw0B8qu9Fk-VtN9dSSZybMLE");
-            string RepDataJson = await Client.GetStringAsync(CallPath);
+            string RepDataJson = await Client.GetStringAsync(CallPath).ConfigureAwait(false);
 
             //Send Back Data
             bool SuccessfulCall = !RepDataJson.Contains("error");

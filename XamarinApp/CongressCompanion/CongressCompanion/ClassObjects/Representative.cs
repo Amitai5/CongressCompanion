@@ -4,15 +4,15 @@ namespace CongressCompanion.ClassObjects
 {
     public class Representative : IComparable
     {
-        public Uri Website { get; private set; }
-        public Uri ImageUrl { get; private set; }
-        public string FullName { get; private set; }
+        public Uri Website { get; }
+        public Uri ImageUrl { get; }
+        public string FullName { get; }
+        public string PhoneNumber { get; }
+        public string PrimaryEmail { get; }
+        public PoliticalParty Party { get; }
         public string OfficeName { get; private set; }
         public string DivisionID { get; private set; }
-        public string PhoneNumber { get; private set; }
-        public string PrimaryEmail { get; private set; }
         public RepGovLevel GovLevel { get; private set; }
-        public PoliticalParty Party { get; private set; }
 
         //Store Their Rank
         private int RepOfficeIndex = -1;
@@ -28,19 +28,19 @@ namespace CongressCompanion.ClassObjects
             }
 
             //Check For No Phone Numbers
-            if (phoneNumbers != null && phoneNumbers.Length > 0)
+            if (phoneNumbers?.Length > 0)
             {
                 PhoneNumber = phoneNumbers[0];
             }
 
             //Check For No Websites
-            if (websites != null && websites.Length > 0)
+            if (websites?.Length > 0)
             {
                 Website = new Uri(websites[0]);
             }
 
             //Check For No Emails
-            if (emails != null && emails.Length > 0)
+            if (emails?.Length > 0)
             {
                 PrimaryEmail = emails[0];
             }
@@ -51,7 +51,7 @@ namespace CongressCompanion.ClassObjects
                 int EnumCounter = 0;
                 foreach (string PartyName in Enum.GetNames(typeof(PoliticalParty)))
                 {
-                    if (PartyName.ToLower() == party.ToLower())
+                    if (party.IndexOf(PartyName, StringComparison.OrdinalIgnoreCase) >= 0)
                     {
                         Party = (PoliticalParty)EnumCounter;
                         return;
