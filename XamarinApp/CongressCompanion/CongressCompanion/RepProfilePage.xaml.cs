@@ -10,7 +10,7 @@ namespace CongressCompanion
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class RepProfilePage : ContentPage
     {
-        private Representative CurrentRep;
+        private readonly Representative CurrentRep;
         public RepProfilePage(Representative local)
         {
             InitializeComponent();
@@ -99,7 +99,7 @@ namespace CongressCompanion
             switch (IconName.ToLower())
             {
                 case "phonecall":
-                    Device.OpenUri(new Uri($"tel:{CurrentRep.PhoneNumber.ToString()}"));
+                    Device.OpenUri(new Uri($"tel:{CurrentRep.PhoneNumber}"));
                     break;
                 case "website":
                     Device.OpenUri(CurrentRep.Website);

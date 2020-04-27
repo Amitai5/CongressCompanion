@@ -15,7 +15,7 @@ namespace CongressCompanion
 
             //Set Color And Text Of Title
             TitleLBL.TextColor = AppThemeManager.Instance.CurrentTheme.TextColor;
-            TitleLBL.Text = $"{Type.ToString()} Officials";
+            TitleLBL.Text = $"{Type} Officials";
 
             //Load Up The Reps
             LoadReps(Type);
@@ -113,7 +113,7 @@ namespace CongressCompanion
                     VerticalOptions = new LayoutOptions(LayoutAlignment.Center, false),
                     TextColor = AppThemeManager.Instance.CurrentTheme.TextColor,
                     HorizontalTextAlignment = TextAlignment.Center,
-                    Text = $"Could Not Find {RepType.ToString()} Officals...",
+                    Text = $"Could Not Find {RepType} Officals...",
                     FontSize = 18
                 };
                 MainLayout.Children.Add(NoRepsFound);

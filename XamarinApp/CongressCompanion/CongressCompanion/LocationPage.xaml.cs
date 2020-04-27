@@ -8,7 +8,7 @@ namespace CongressCompanion
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class LocationPage : ContentPage
     {
-        bool FromSettingsPage = false;
+        readonly bool FromSettingsPage = false;
         bool IsLoadingNextPage = false;
 
         public LocationPage(bool FromSettings = false)
@@ -26,7 +26,7 @@ namespace CongressCompanion
 
             //Otherwise Load This
             AppThemeManager.Instance.AppThemeChange += Instance_AppThemeChange;
-            CongressSealImg.Source = ImageSource.FromFile("CongressIcon.png");
+            CongressSealImg.Source = ImageSource.FromFile("AppIcon.png");
             LoadingIcon.Color = Color.FromHex("#ECAB66"); //Set The Loading Icon To A Goldish
             ReloadThemeColors();
 
@@ -57,10 +57,10 @@ namespace CongressCompanion
                 return;
             }
             IsLoadingNextPage = true;
-            bool IsZipcodeSearch = false;
             LoadingIcon.IsVisible = true;
 
             //Check If Any Of Them Are Null Or Empty
+            bool isZipcodeSearch;
             if (string.IsNullOrEmpty(AddressTxtBox.Text) && string.IsNullOrEmpty(CityTxtBox.Text)
                 && string.IsNullOrEmpty(ZipcodeTxtBox.Text))
             {
@@ -71,11 +71,11 @@ namespace CongressCompanion
             else
             {
                 //Set Zipcode Search
-                IsZipcodeSearch = !string.IsNullOrEmpty(ZipcodeTxtBox.Text);
+                isZipcodeSearch = !string.IsNullOrEmpty(ZipcodeTxtBox.Text);
             }
 
             //Check How They Want To Search
-            if (IsZipcodeSearch)
+            if (isZipcodeSearch)
             {
                 AppManager.Instance.UserLocationInfo = ZipcodeTxtBox.Text.Trim();
 
@@ -107,7 +107,7 @@ namespace CongressCompanion
                 }
 
                 //Get Address Info
-                string Address = $"{AddressTxtBox.Text.Trim()}, {CityTxtBox.Text.Trim()} {StatePicker.SelectedItem.ToString()}";
+                string Address = $"{AddressTxtBox.Text.Trim()}, {CityTxtBox.Text.Trim()} {StatePicker.SelectedItem}";
                 AppManager.Instance.UserLocationInfo = Address.Trim();
             }
 
